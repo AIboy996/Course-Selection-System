@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/fudan_login.css'%}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+
+<body>
+    <div class="IDCheckMiddleCon">
+        <div class="IDCheckLogin">
+            <div class="IDCheckLoginTitle">
+                <img src="/static/images/cas_logo.png" class="flip">
+                <h2>非统一身份认证</h2>
+            </div>
+            <div class="IDCheckLoginWarn">您将登录的是：<span style="display: inline;">选课系统</span></div>
+            <div class="IDCheckLoginInputCon">
+                <form class='form-signin' action="/login/" method="post">
+                    {% csrf_token %}
+                    {{ login_form.email }}
+                    {{ login_form.password }}
+                    {% if message %}
+                    <div class="IDCheckLoginError">{{ message }}</div>
+                    {% endif %}
+                    <div class="IDCheckLoginFoot" style="text-align: right;">
+                        <button class="IDCheckLoginBtn" type="submit">登录</button>
+                        <div class="IDCheckLoginHelp"><a href="/find_password" target="_black">找回密码</a></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="IDCheckNotice">
+            <div class="IDCheckNoticeTitle">
+                <span>通知公告</span>
+            </div>
+            <div class="IDCheckNoticeLine"></div>
+            <div class="IDCheckNoticeContent">
+                <div class="IDCheckNoticeItem">
+                    <ul id="notice">
+                        <li>
+                            <div class="IDCheckNOticeArrow"></div>
+                            <div class="IDCheckNoticeCon">
+                                <div class="IDCheckNoticeItemText"><a
+                                        href="http://www.xxb.fudan.edu.cn/29/7f/c2240a76159/page.htm"
+                                        target="_blank">账号封禁列表</a></div><span
+                                    class="IDCheckNoticeItemTime">[2017-10-11]</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="IDCheckNOticeArrow"></div>
+                            <div class="IDCheckNoticeCon">
+                                <div class="IDCheckNoticeItemText"><a href="" target="_blank">常见问题答疑</a></div><span
+                                    class="IDCheckNoticeItemTime">[2022-12-01]</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="IDCheckFooter">
+            <div class="IDCheckRight">
+                <span>Copyright © xxxx版权所有，&nbsp;联系我们：<a href="mailto:urp@xyz.com"
+                        class="IDCheckLoginHelp">urp@xyz.com</a></span>
+            </div>
+        </div>
+</body>
+
+</html>

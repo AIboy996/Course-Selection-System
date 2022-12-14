@@ -1,0 +1,33 @@
+# 配置文件的版本
+version: "3.8"
+# 服务器群
+services:
+  # 网页服务
+  django:
+    restart: always
+    build: .
+    # 在数据库搭建完成之后启动
+    depends_on:
+      - mysql
+    ports:
+      - 8000:8000
+    # 把当前文件夹映射为django的工作目录，从而达到本地修改同步到容器的效果
+    volumes:
+      - .:/xk
+    # 运行命令
+    command: sh -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8000"
+  # 数据库服务
+  mysql:
+    # 用当前文件夹的Dockerfile来构建
+    image: mysql
+    restart: always
+    # 数据库的端口就不暴露出来了
+    ports:
+     - 3306:3306
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE : "xk"
+      MYSQL_ROOT_PASSWORD : 123456
+    # 映射本地的文件夹作为容器的一个volume，从而永久保存容器中产生的数据
+    volumes:
+      - ./MySQL_data:/var/lib/mysql

@@ -1,0 +1,237 @@
+/* 复旦统一身份认证的样式 */
+
+body {
+    margin: 0;
+    font-size: 12px;
+    line-height: 20px;
+    background-color: #ebebeb;
+    font-family: Microsoft Yahei;
+    overflow: hidden;
+}
+
+.IDCheckLogin {
+    width: 360px;
+    float: left;
+    position: relative;
+    margin-left: 16px;
+    margin-right: 16px;
+    background-color: #fff;
+    height: 425px;
+    box-shadow: 0 3px 4px #bbb;
+}
+
+.IDCheckNotice {
+    width: 430px;
+    float: left;
+    position: relative;
+    padding-right: 16px;
+    height: 425px;
+    background-color: #fff;
+    box-shadow: 0 3px 4px #bbb;
+}
+
+.IDCheckLoginTitle {
+    float: left;
+    width: 288px;
+    margin-top: 30px;
+    margin-left: 36px;
+    margin-right: 36px;
+}
+
+.IDCheckLoginTitle h2 {
+    color: #0e419c;
+    font-size: 24px;
+}
+
+.IDCheckLoginTitle img {
+    float: left;
+    margin-right: 16px;
+}
+
+.IDCheckLoginWarn {
+    float: left;
+    margin-top: 8px;
+    color: #f3a771;
+    width: 288px;
+    margin-left: 36px;
+    margin-right: 36px;
+    margin-bottom: 10px;
+}
+
+.IDCheckLoginInputCon {
+    float: left;
+    margin-top: 6px;
+    margin-left: 36px;
+    margin-right: 42px;
+    width: 288px;
+    margin-bottom: 8px;
+}
+
+.IDCheckLoginName {
+    float: left;
+    width: 280px;
+    line-height: 34px;
+    height: 34px;
+}
+
+.IDCheckLoginPassWord {
+    float: left;
+    width: 280px;
+    height: 34px;
+    line-height: 34px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.IDCheckLoginError {
+    color: #f3a771;
+    float: left;
+    width: 282px;
+    height: 20px;
+}
+
+.IDCheckLoginFoot {
+    position: relative;
+    float: right;
+    margin-right: 0px;
+    margin-top: 8px;
+}
+
+.IDCheckLoginBtn {
+    background-color: #0e419c;
+    color: #fff;
+    font-size: 16px;
+    line-height: 35px;
+    border: 0px;
+    width: 98px;
+    height: 38px;
+}
+
+.IDCheckLoginHelp {
+    margin-top: 8px;
+    color: #808080;
+}
+
+.IDCheckLoginHelp a {
+    color: #666666;
+    text-decoration: blink;
+}
+
+.IDCheckNoticeTitle {
+    margin-top: 30px;
+    font-size: 18px;
+    margin-left: 20px;
+}
+
+.IDCheckNoticeTitle span {
+    font-size: 14px;
+    font-weight: 600;
+    color: #666666;
+    margin-left: 3px;
+}
+
+.IDCheckNoticeLine {
+    margin: 16px 32px -1px 24px;
+    background-color: #EEEEEE;
+    width: 397px;
+    height: 1px;
+}
+
+.IDCheckNoticeContent {
+    float: left;
+    margin-left: 38px;
+    width: 380px;
+}
+
+.IDCheckNOticeArrow {
+    border-left: 6px solid #DDDDDD;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-top: 6px solid transparent;
+    float: left;
+    margin-right: 4px;
+    margin-top: 4px;
+}
+
+.IDCheckNoticeItemText {
+    width: 247px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    float: left;
+    margin-right: 8px;
+}
+
+.IDCheckNoticeItemText a {
+    text-decoration: none;
+    color: #666666;
+}
+
+.IDCheckNoticeItemText a:hover {
+    color: #4373d8;
+}
+
+.IDCheckNoticeItemTime {
+    float: left;
+    color: #666666;
+}
+
+.IDCheckNoticeItem ul li {
+    list-style-type: none;
+    float: left;
+    width: 100%;
+}
+
+.IDCheckNoticeItem ul {
+    padding-left: 0px;
+}
+
+.IDCheckNoticeCon:hover {
+    color: #4373d8;
+    cursor: pointer;
+}
+
+.IDCheckLoginInputCon input {
+    padding-left: 4px;
+}
+
+.IDCheckLoginFoot.hasError {
+    margin-top: 10px;
+}
+
+.IDCheckMiddleCon {
+    width: 838px;
+    height: 425px;
+    padding: 0 24px;
+    position: absolute;
+    top: 50%;
+    margin-top: -212px;
+    left: 50%;
+    margin-left: -443px;
+}
+
+.IDCheckMiddleCon:after {
+    display: block;
+    clear: both;
+}
+
+.IDCheckFooter {
+    background-color: #e3e8f0;
+    text-align: center;
+    width: 100%;
+    padding: 6px 0;
+    color: #666666;
+    line-height: 32px;
+    position: absolute;
+    bottom: 0px;
+}
+
+.IDCheckLink a {
+    color: #666666;
+    text-decoration: blink;
+}
+
+.flip {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}

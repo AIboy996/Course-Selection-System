@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程信息</title>
+</head>
+<body>
+    {% include "nav.html" %}
+    <table border=1>
+        <tr>
+            <th>课程代码</th>
+            <th>课程名称</th>
+            <th>开课院系</th>
+            <th>学分数</th>
+            <th>授课老师</th>
+            <th>周学时</th>
+            <th>授课周数</th>
+            <th>授课时间</th>
+            <th>查看详情</th>
+        </tr>
+    {% for i in class_lst %}
+    <tr>
+        <td>{{ i.classid }}</td>
+        <td>{{ i.name }}</td>
+        <td>{{ i.department }}</td>
+        <td>{{ i.credit }}</td>
+        <td>{{ i.teacher.name }}</td>
+        <td>{{ i.detail.hours }}</td>
+        <td>{{ i.detail.weeks }}</td>
+        <td>{{ i.detail.time }}</td>
+        <td><a href="./detail/?classid={{ i.classid }}">→详情</a></td>
+    </tr>
+    {% endfor %}
+    </table>
+    {% include "footer.html" %}
+</body>
+</html>
