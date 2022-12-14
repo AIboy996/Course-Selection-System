@@ -32,7 +32,7 @@ python manage.py createsuperuser
 
 ## 登陆页面
 
-![image-20221214191110345](assets/image-20221214191110345.png)
+![image-20221215013609081](assets/image-20221215013609081.png)
 
 需要用指定的账号登录，未登录情况下访问域名下任何的地址都会重定向到这个页面
 
