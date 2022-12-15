@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from xk_models.models import ClassInfo, Teacher, ClassDetail, User
-from .forms import UserForm
+from .forms import UserForm, TestModelForm
 
 def is_login(func):
     """装饰器，如果未登录则重定向到登录界面"""
@@ -87,3 +87,14 @@ def classinfo_detail(request):
     
     detail = ClassDetail.objects.get(classid=classid).to_dict()
     return render(request, 'classinfo_detail.html', locals())
+
+
+def test(request):
+    form = TestModelForm()
+    print("生成了form")
+    if request.method == "POST":
+        if form.is_valid():
+            print('form is valid')
+        else:
+            print('form error')
+    return render(request, 'test.html', locals())
