@@ -9,6 +9,15 @@
 <body>
     {% include "nav.html" %}
     <h2>欢迎来到个人中心</h2>
+    <h3>您好!  {{ identity }}，您的相关信息如下：</h3>
+    <ul>
+        <li>姓名：</li><p>{{ name  }}</p>
+        <li>学号：</li><p>{{ id  }}</p>
+        <li>邮箱：</li><p>{{ email }}</p>
+        <li>专业：</li><p>{{ major }}</p>
+        <li>入校年份：</li><p>{{ year }}</p>
+        <li>年级：</li><p>{{ grade }}</p>
+    </ul>
     {% include "footer.html" %}
 </body>
 </html>

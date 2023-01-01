@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选课列表</title>
+</head>
+<body>
+{% include "nav.html" %}
+
+<table border="1" class="table table-sm">
+    <tr>
+        <th>Sunday</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+    </tr>
+    {% for items in class_table %}
+    <tr>
+        {% for item in items %}
+        <td>{{ item |default:"-"}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"
+                role="tab" aria-controls="home-tab-pane" aria-selected="true">选择课程
+        </button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button"
+                role="tab" aria-controls="profile-tab-pane" aria-selected="false">已选课程
+        </button>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+            <div class="row g-7">
+            <div class="col-sm">
+                <input type="text" class="form-control" name="classid" placeholder="课程序号" aria-label="City">
+            </div>
+            <div class="col-sm">
+                <input type="text" class="form-control" name="code" placeholder="课程代码" aria-label="State">
+            </div>
+            <div class="col-sm">
+                <input type="text" class="form-control" name="name" placeholder="课程名称" aria-label="Zip">
+            </div>
+            <div class="col-sm">
+                <input type="text" class="form-control" name="department" placeholder="开课院系" aria-label="City">
+            </div>
+            <div class="col-sm">
+                <select class="form-select" name="time" placeholder="开课时间" aria-label="Default select example">
+                    <option selected>开课时间</option>
+                    <option value="周一">周一</option>
+                    <option value="周二">周二</option>
+                    <option value="周三">周三</option>
+                    <option value="周四">周四</option>
+                    <option value="周五">周五</option>
+                    <option value="周六">周六</option>
+                    <option value="周日">周日</option>
+                </select>
+            </div>
+            <div class="col-sm">
+                <select class="form-select" name="exam" placeholder="开课时间" aria-label="Default select example">
+                    <option selected>考试类型</option>
+                    <option value="开卷考试">开卷考试</option>
+                    <option value="闭卷考试">闭卷考试</option>
+                    <option value="半开卷考试">半开卷考试</option>
+                    <option value="课程论文">课程论文</option>
+                    <option value="其他">其他</option>
+                </select>
+            </div>
+            <div class="col-sm">
+                <button type="submit" class="btn btn-primary" action="classchoice/select_class/" >查询</button>
+            </div>
+
+        </div>
+        </form>
+    </div>
+    <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+        <table border=1 class="table table-sm">
+            <tr>
+                <th>课程序号</th>
+                <th>课程代码</th>
+                <th>课程名称</th>
+                <th>开课院系</th>
+                <th>学分数</th>
+                <th>授课老师</th>
+                <th>授课周数</th>
+                <th>授课时间</th>
+                <th>考试形式</th>
+                <th>查看详情</th>
+                <th>退课</th>
+            </tr>
+            {% for i in cla_list %}
+            <tr>
+                <td>{{ i.classid }}</td>
+                <td>{{ i.code }}</td>
+                <td>{{ i.name }}</td>
+                <td>{{ i.department }}</td>
+                <td>{{ i.credit }}</td>
+                <td>{{ i.teacher }}</td>
+                <td>{{ i.hour }}</td>
+                <td>{{ i.time }}</td>
+                <td>{{ i.exam }}</td>
+                <td><a href="../classinfo/detail/?classid={{ i.classid }}">→详情</a></td>
+                <td><a href="./drop_class/?classid={{ i.classid }}">退课</a></td>
+                <!--                <td>0</td>-->
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% include "footer.html" %}
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+
+</body>
+</html>

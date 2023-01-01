@@ -5,10 +5,12 @@ from xk_models.models import ClassDetail
 class UserForm(forms.Form):
     email = forms.CharField(label="邮箱",
                             max_length=50,
-                            widget=forms.TextInput(attrs={'class': 'IDCheckLoginName', 'placeholder': '邮箱（不是学号！）'}))
+                            widget=forms.TextInput(
+                                attrs={'class': 'IDCheckLoginName', 'placeholder': '邮箱（不是学号！）'}))
     password = forms.CharField(label="密码",
                                max_length=256,
-                               widget=forms.PasswordInput(attrs={'class': 'IDCheckLoginPassWord', 'placeholder': '密码'}))
+                               widget=forms.PasswordInput(
+                                   attrs={'class': 'IDCheckLoginPassWord', 'placeholder': '密码'}))
 
 
 class TestModelForm(forms.ModelForm):
@@ -42,3 +44,33 @@ class TestModelForm(forms.ModelForm):
                     attrs={'class': 'form-control', 'rows': '5'})
                 continue
             field.widget.attrs = {'class': 'form-control'}
+
+
+class SelectionForm(forms.Form):
+    classid = forms.CharField(required=False, label="课程序号",
+                              max_length=50)
+    code = forms.CharField(required=False, label="课程代码",
+                           max_length=50)
+    name = forms.CharField(required=False, label="课程名称",
+                           max_length=50)
+    department = forms.CharField(required=False, label="开课院系",
+                                 max_length=50)
+    time = forms.ChoiceField(required=False, label="开课时间",
+                             choices=[("周一", "周一"),
+                                      ("周二", "周二"),
+                                      ('周三', '周三'),
+                                      ('周四', '周四'),
+                                      ('周五', '周五'),
+                                      ('周六', '周六'),
+                                      ('周日', '周日'), ],
+                             initial="",
+                             widget=forms.widgets.Select())
+    exam = forms.ChoiceField(required=False, label="考试类型",
+                             choices=[('开卷考试', '开卷考试'),
+                                      ('闭卷考试', '闭卷考试'),
+                                      ('半开卷考试', '半开卷考试'),
+                                      ('课程论文', '课程论文'),
+                                      ('其他', '其他')],
+                             initial="其他",
+                             widget=forms.widgets.Select())
+

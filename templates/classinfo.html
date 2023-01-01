@@ -8,8 +8,9 @@
 </head>
 <body>
     {% include "nav.html" %}
-    <table border=1>
+    <table border=1 class="table table-sm">
         <tr>
+            <th>课程序号</th>
             <th>课程代码</th>
             <th>课程名称</th>
             <th>开课院系</th>
@@ -23,6 +24,7 @@
         {% for i in class_lst %}
         <tr>
             <td>{{ i.classid }}</td>
+            <td>{{ i.code }}</td>
             <td>{{ i.name }}</td>
             <td>{{ i.department }}</td>
             <td>{{ i.credit }}</td>
