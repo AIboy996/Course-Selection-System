@@ -45,12 +45,12 @@ class ClassInfo(models.Model):
     # 学分数，例如：3
     credit = models.SmallIntegerField(verbose_name="学分")
     # 授课老师，例如：张成洪
-    teacher = models.OneToOneField("Teacher", on_delete=models.CASCADE, verbose_name="教师")
+    teacher = models.ForeignKey("Teacher", on_delete=models.CASCADE, verbose_name="教师")
     # 课程详细信息
     detail = models.OneToOneField(
         "ClassDetail", on_delete=models.CASCADE, verbose_name="详细信息")  # 一对一
     # 课程教室安排
-    classroom = models.ManyToManyField("Classroom", verbose_name="教室安排")  # 多对多关系
+    classroom = models.ForeignKey("Classroom", on_delete=models.CASCADE,verbose_name="教室安排")  # 多对多关系
 
 
 class Teacher(models.Model):
@@ -86,7 +86,7 @@ class ClassDetail(models.Model):
     # 共计周数，例如：18
     weeks = models.SmallIntegerField(verbose_name="周数")
     # 排课时间
-    time = models.CharField(max_length=12, verbose_name="排课时间")
+    time = models.CharField(max_length=50, verbose_name="排课时间")
     # 先修课程
     prerequisites = models.CharField(max_length=30, default='无', verbose_name="先修课程(分号隔开)")
     # 主讲教师简介
@@ -127,9 +127,9 @@ class Evaluation(models.Model):
     '''评教信息'''
     classid = models.ForeignKey("classinfo", on_delete=models.CASCADE, verbose_name="课程id")
     user_id = models.ForeignKey("User", on_delete=models.CASCADE, verbose_name="学生id")
-    Com_course = models.CharField(max_length=200, verbose_name="课程评价")
-    Com_classroom = models.CharField(max_length=200, verbose_name="教室评价")
-    Com_textbook = models.CharField(max_length=200, verbose_name="教材评价")
+    Com_course = models.CharField(max_length=50, verbose_name="课程评价")
+    Com_classroom = models.CharField(max_length=50, verbose_name="教室评价")
+    Com_textbook = models.CharField(max_length=50, verbose_name="教材评价")
 
     class Meta:
         unique_together = (("classid", "user_id"),)
@@ -140,3 +140,4 @@ class Program(models.Model):
     major = models.CharField(max_length=30, verbose_name="专业")
     grade = models.SmallIntegerField(verbose_name="年级")
     advice = models.CharField(max_length=30, verbose_name="建议课程")
+

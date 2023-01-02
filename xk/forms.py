@@ -1,5 +1,5 @@
 from django import forms
-from xk_models.models import ClassDetail
+from xk_models.models import ClassDetail,Evaluation
 
 
 class UserForm(forms.Form):
@@ -55,22 +55,34 @@ class SelectionForm(forms.Form):
                            max_length=50)
     department = forms.CharField(required=False, label="开课院系",
                                  max_length=50)
-    time = forms.ChoiceField(required=False, label="开课时间",
-                             choices=[("周一", "周一"),
-                                      ("周二", "周二"),
-                                      ('周三', '周三'),
-                                      ('周四', '周四'),
-                                      ('周五', '周五'),
-                                      ('周六', '周六'),
-                                      ('周日', '周日'), ],
-                             initial="",
-                             widget=forms.widgets.Select())
-    exam = forms.ChoiceField(required=False, label="考试类型",
-                             choices=[('开卷考试', '开卷考试'),
-                                      ('闭卷考试', '闭卷考试'),
-                                      ('半开卷考试', '半开卷考试'),
-                                      ('课程论文', '课程论文'),
-                                      ('其他', '其他')],
-                             initial="其他",
-                             widget=forms.widgets.Select())
+    time = forms.CharField(required=False, label="开课时间",
+                                 max_length=50)
+    exam = forms.CharField(required=False, label="考试类型",
+                                 max_length=50)
 
+class EvaluationForm(forms.ModelForm):
+    class Meta:
+        model = Evaluation
+        exclude = ["classid", "user_id"]
+        error_messages = {
+            "Com_course":{"max_length":"最大输入长度为50","required":"请输入评论"},
+            "Com_classroom":{"max_length":"最大输入长度为50","required":"请输入评论"},
+        "Com_textbook":{"max_length":"最大输入长度为50","required":"请输入评论"}
+        }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+
+            if name == 'Com_course':
+                field.widget = forms.Textarea(
+                    attrs={'class': 'form-control', 'rows': '3',"placeholder":"请写您对课程的评价（50字以内）"})
+                continue
+            elif name == 'Com_classroom':
+                field.widget = forms.Textarea(
+                    attrs={'class': 'form-control', 'rows': '3',"placeholder":"请写您对教室的评价（50字以内）"})
+                continue
+            elif name == 'Com_textbook':
+                field.widget = forms.Textarea(
+                    attrs={'class': 'form-control', 'rows': '3',"placeholder":"请写您对教材的评价（50字以内）"})
+                continue
+            field.widget.attrs = {'class': 'form-control'}

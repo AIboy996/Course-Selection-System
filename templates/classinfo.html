@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,6 +11,49 @@
 </head>
 <body>
     {% include "nav.html" %}
+    <form method="post" action="/classinfo/">
+            {% csrf_token %}
+        <div class="row g-7">
+            <div class="col-sm">
+                <input type="text" class="form-control" name="classid" placeholder="课程序号" aria-label="City">
+            </div>
+            <div class="col-sm">
+                <input type="text" class="form-control" name="code" placeholder="课程代码" aria-label="State">
+            </div>
+            <div class="col-sm">
+                <input type="text" class="form-control" name="name" placeholder="课程名称" aria-label="Zip">
+            </div>
+            <div class="col-sm">
+                <input type="text" class="form-control" name="department" placeholder="开课院系" aria-label="City">
+            </div>
+            <div class="col-sm">
+                <select class="form-select" name="time" placeholder="开课时间" aria-label="Default select example">
+                    <option selected>开课时间</option>
+                    <option value="周一">周一</option>
+                    <option value="周二">周二</option>
+                    <option value="周三">周三</option>
+                    <option value="周四">周四</option>
+                    <option value="周五">周五</option>
+                    <option value="周六">周六</option>
+                    <option value="周日">周日</option>
+                </select>
+            </div>
+            <div class="col-sm">
+                <select class="form-select" name="exam" placeholder="开课时间" aria-label="Default select example">
+                    <option selected>考试类型</option>
+                    <option value="开卷考试">开卷考试</option>
+                    <option value="闭卷考试">闭卷考试</option>
+                    <option value="半开卷考试">半开卷考试</option>
+                    <option value="课程论文">课程论文</option>
+                    <option value="其他">其他</option>
+                </select>
+            </div>
+            <div class="col-sm">
+                <button type="submit" class="btn btn-primary" >查询</button>
+            </div>
+
+        </div>
+        </form>
     <table border=1 class="table table-sm">
         <tr>
             <th>课程序号</th>
@@ -37,5 +83,7 @@
         {% endfor %}
     </table>
     {% include "footer.html" %}
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
 </body>
 </html>

@@ -29,6 +29,9 @@ urlpatterns = [
     path('test/', views.test),
     path('classchoice/', views.classchoice),
     path('classchoice/drop_class/', views.drop_class),
-    path('classchoice/add_class/', views.drop_class),
-    path('program/',views.program)
+    path('classchoice/add_class/', views.add_class),
+    path('program/',views.program),
+    path('classtable/',views.class_table),
+    path("score/",views.score),
+    re_path(r"^evaluation/(.*)/?$",views.evaluation)
 ]

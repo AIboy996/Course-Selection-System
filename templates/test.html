@@ -25,10 +25,11 @@
                     <h1 class="modal-title fs-5" id="exampleModalLabel">课程详细信息</h1>
                 </div>
                 <div class="modal-body">
-                    <form action="/test/" method="post">
+                    <form action="/test/" method="get">
                             {% csrf_token %}
                             {% for field in form %}
                             <label>{{ field.label }}</label>{{ field }}
+
                             {% endfor %}
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">提交</button>
