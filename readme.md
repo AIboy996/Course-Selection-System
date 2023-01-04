@@ -1,4 +1,6 @@
-## 服务器部署：docker
+## 服务部署：docker
+
+### 容器运行
 
 **安装docker**之后，在项目文件夹打开终端，输入命令：
 
@@ -8,11 +10,23 @@ docker-compose up -d --build
 
 即可运行mysql和web服务器
 
-![image-20221214192043182](assets/image-20221214192043182.png)
+![image-20230105012459086](assets/image-20230105012459086.png)
 
 可以在docker后台看到这两个容器的运行情况：
 
-![image-20221214192114945](assets/image-20221214192114945.png)
+![image-20230105012505847](assets/image-20230105012505847.png)
+
+### 导入数据
+
+等待两个容器都启动完毕后，在mysql的terminal运行下面的命令导入数据：
+
+```sh
+mysql --user='root' --password='123456' --database='xk' < '/xk.sql'
+```
+
+看到下图即为数据导入成功：
+
+![image-20230105012420664](assets/image-20230105012420664.png)
 
 ## admin
 

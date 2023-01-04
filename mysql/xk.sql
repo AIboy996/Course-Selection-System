@@ -36,7 +36,8 @@ VALUES ('123','小明','123','12345@fudan.edu.cn',1,0,0,0),
 ('shimei','石梅','123456','shimei@fudan.edu.cn',0,1,0,0),
 ('sunxingwen','孙兴文','123456','sunxingwen@fudan.edu.cn',0,1,0,0),
 ('wuliguang','吴立广','123456','wuliguang@fudan.edu.cn',0,1,0,0),
-('xuqingfeng','徐勤丰','123456','xuqingfeng@fudan.edu.cn',0,1,0,0);
+('xuqingfeng','徐勤丰','123456','xuqingfeng@fudan.edu.cn',0,1,0,0),
+('zhuzhongyi','朱仲义','123456','zhuzhongyi@fudan.edu.cn',0,1,0,0);
 
 
 -- 导入老师信息
