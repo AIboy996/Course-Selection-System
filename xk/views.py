@@ -127,6 +127,8 @@ def message(request):
         address = {'/': 'Home'}
     elif identity == 1:
         address = {"/teacher_index": "Home"}
+    elif identity == 3:
+        address = {"/admin_index": "Home"}
     pagename = '信息中心'
 
     message = Message.objects.filter(to_id=id)

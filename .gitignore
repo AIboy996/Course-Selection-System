@@ -1,2 +1,3 @@
 MySQL_data/*.pem
 MySQL_data/*.sock
+/xk_models/migrations/*

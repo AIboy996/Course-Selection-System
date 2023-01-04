@@ -19,7 +19,10 @@
             <tr>
                 <th>课程代码</th>
                 <th>课程名称</th>
+                {% if request.session.week < 3 %}
                 <th>前往选课</th>
+                   {% else %}
+                {% endif %}
                 <th>查看细节</th>
             </tr>
             {% for i in adv_list %}
