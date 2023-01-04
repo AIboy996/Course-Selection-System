@@ -1,14 +1,20 @@
-## 服务部署：docker
+[toc]
+
+## 前置要求
+
+本项目需要用[docker](https://www.docker.com/)来部署，在Windows系统下安装docker可以参考文章[Install On Windows](https://docs.docker.com/desktop/install/windows-install/)。
+
+## 服务部署
 
 ### 容器运行
 
-**安装docker**之后，在项目文件夹打开终端，输入命令：
+在项目文件夹打开终端，输入命令：
 
-```
+```sh
 docker-compose up -d --build
 ```
 
-即可运行mysql和web服务器
+即可构建并运行mysql和django服务器
 
 ![image-20230105012459086](assets/image-20230105012459086.png)
 
@@ -16,9 +22,9 @@ docker-compose up -d --build
 
 ![image-20230105012505847](assets/image-20230105012505847.png)
 
-### 导入数据
+### 数据导入
 
-等待两个容器都启动完毕后，在mysql的terminal运行下面的命令导入数据：
+***等待两个容器都启动完毕后***，在mysql的terminal运行下面的命令导入数据：
 
 ```sh
 mysql --user='root' --password='123456' --database='xk' < '/xk.sql'
@@ -28,7 +34,9 @@ mysql --user='root' --password='123456' --database='xk' < '/xk.sql'
 
 ![image-20230105012420664](assets/image-20230105012420664.png)
 
-## admin
+## 页面介绍
+
+### admin
 
 django自带的管理员页面，可以登录超级用户来管理普通用户
 
@@ -44,13 +52,13 @@ python manage.py createsuperuser
 
 
 
-## 登陆页面
+### 登陆页面
 
 ![image-20221215013609081](assets/image-20221215013609081.png)
 
 需要用指定的账号登录，未登录情况下访问域名下任何的地址都会重定向到这个页面
 
-## 首页
+### 首页
 
 ![image-20221214191438218](assets/image-20221214191438218.png)
 
@@ -58,19 +66,19 @@ python manage.py createsuperuser
 
 - 点击登出会清除登录的session信息，并且重新定向到登录页面。
 
-## 个人中心
+### 个人中心
 
 - 个人中心还没写，后续会写改密码等功能：
 
 ![image-20221214191541232](assets/image-20221214191541232.png)
 
-## 课程大纲查询
+### 课程大纲查询
 
 ![image-20221214191611295](assets/image-20221214191611295.png)
 
 在此页面可以查看所有开设的课程
 
-## 课程详情
+### 课程详情
 
 ![image-20221214191653424](assets/image-20221214191653424.png)
 
