@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>审核成绩</title>
+</head>
+<body>
+{% include "nav.html" %}
+<p>     </p>
+<h4><b>{{ request.session.user_name }} 老师您好,请查看{{ classid }}课程评分</b> </h4>
+<p>    </p>
+<table border=1 class="table table-sm">
+        <tr>
+            <th>学生学号</th>
+            <th>姓名</th>
+            <th>分数状态</th>
+        </tr>
+        {% for i in rec_list %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.name }}</td>
+            <td>{{ i.score }}</td>
+
+    </tr>
+            {% endfor %}
+    </table>
+<p style="color:red">{{ err }}</p>
+<h4><b>成绩分布</b> </h4>
+<p>    </p>
+<table border=1 class="table table-sm">
+        <tr>
+            <th>A类</th>
+            <th>B类</th>
+            <th>C类</th>
+            <th>D类</th>
+            <th>F类</th>
+        </tr>
+        <tr>
+            <td>{{ a_per }}</td>
+            <td>{{ b_per }}</td>
+            <td>{{ c_per }}</td>
+             <td>{{ d_per }}</td>
+            <td>{{ f_per }}</td>
+
+    </tr>
+     </table>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <button type="button" class="btn btn-danger me-md-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                驳回</button>
+  <a href="/grade_audit/grade_confirm/?classid={{ id }}"><button class="btn btn-primary" type="button">通过</button></a>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">驳回原因</h1>
+                </div>
+                <div class="modal-body">
+                    <form action="/grade_audit/grade_detail/{{ id }}/" method="POST">
+                            {% csrf_token %}
+                        <label>驳回原因</label>
+                        <textarea class="form-control" name="comment"  rows="3" placeholder="不超过50字"></textarea>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">提交</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include "footer.html" %}
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

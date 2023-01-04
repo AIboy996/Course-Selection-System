@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信息中心</title>
+</head>
+<body>
+{% include "nav.html" %}
+<p>     </p>
+<h4><b>信息中心</b> </h4>
+<p>    </p>
+<table border=1 class="table table-sm">
+        <tr>
+            <th>发件人</th>
+            <th>内容</th>
+            <th>删除</th>
+        </tr>
+        {% for i in mess_list %}
+        <tr>
+            <td>{{ i.from }}</td>
+            <td>{{ i.message }}</td>
+            <td><a href="./message_delete/?from_id={{ i.from_id }}"><button type="button" class="btn btn-secondary btn-sm"
+                        >删除</button></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% include "footer.html" %}
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

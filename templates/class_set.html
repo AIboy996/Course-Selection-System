@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开课详情</title>
+</head>
+<body>
+<p>     </p>
+<h4><b>详细信息</b> </h4>
+<p>    </p>
+<table border=1 class="table table-sm">
+        <tr>
+            <th>随机课程序号</th>
+            <th>随机课程代码</th>
+            <th>课程名称</th>
+            <th>授课老师</th>
+            <th>周学时</th>
+            <th>周数</th>
+            <th>先修课</th>
+            <th>考试信息</th>
+        </tr>
+        <tr>
+            <td>{{ clas_dict.classid }}</td>
+            <td>{{ clas_dict.code }}</td>
+            <td>{{ clas_dict.name }}</td>
+            <td>{{ clas_dict.teacher }}</td>
+            <td>{{ clas_dict.hours }}</td>
+            <td>{{ clas_dict.weeks }}</td>
+            <td>{{ clas_dict.pre }}</td>
+            <td>{{ clas_dict.exam }}</td>
+
+        </tr>
+    </table>
+<h2>其他信息</h2>
+    <ul>
+        <li>课程简介</li><p>{{ clas_dict.brief }}</p>
+        <li>教师信息</li><p>{{ clas_dict.teacher_info }}</p>
+        <li>评分标准</li><p>{{ clas_dict.assessment }}</p>
+    </ul>
+
+  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                驳回</button>
+
+    <!--  modal-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">驳回原因</h1>
+                </div>
+                <div class="modal-body">
+                    <form action="/class_audit/class_set/{{ clas_dict.id }}/" method="POST">
+                            {% csrf_token %}
+                        <label>驳回原因</label>
+                        <textarea class="form-control" name="comment"  rows="3" placeholder="不超过50字"></textarea>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">提交</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <p style="color:red">{{ err }}</p>
+    <p>     </p>
+<h4><b>开课选择查询</b> </h4>
+<p>    </p>
+
+    <form action="/class_audit/class_set/{{ clas_dict.id }}" method="POST">
+        {% csrf_token %}
+    <div class="row">
+  <div class="col">
+    <select class="form-select" name="days" aria-label="Default select example">
+
+        <option selected>...</option>
+        {% for j in time_combo %}}
+        <option value={{ j }}>{{ j }}</option>
+        {% endfor %}
+    </select>
+  </div>
+          <div class="col">
+              <button type="submit" class="btn btn-primary" >查询教室</button>
+         </div>
+
+</div>
+    </form>
+
+
+<table border=1 class="table table-sm">
+        <tr>
+            <th>调课教室</th>
+            <th>选择</th>
+        </tr>
+        {% for i in clas_classroom %}
+        <tr>
+            <td>{{ i }}</td>
+            <td><a href="/settle/?id={{ id }}&&credit={{ credit }}&&classroom={{ i }}&&classid={{ clas_dict.classid }}&&time={{ from_time_group }}">
+                <button type="button" class="btn btn-primary btn-sm"
+            >选择</button></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% include "footer.html" %}
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

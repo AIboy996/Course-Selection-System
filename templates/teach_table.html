@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程表查看</title>
+</head>
+<body>
+{% include "nav.html" %}
+<p>     </p>
+<h4><b>第{{ week }}周授课课表</b> </h4>
+<p>    </p>
+<table border="1" class="table table-sm">
+    <tr>
+        <th>Sunday</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+    </tr>
+    {% for items in teach_table %}
+    <tr>
+        {% for item in items %}
+        {% if item.normal == 1 %}
+        <td><p style="color:red">{{ item.context |default:"-"}}</p></td>
+        {% elif item.normal == 0 %}
+        <td>{{ item.context |default:"-"}}</td>
+        {% endif %}
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+<p></p>
+   <table border=1 class="table table-sm">
+        <tr>
+            <th>课程序号</th>
+            <th>课程名称</th>
+            <th>授课时间</th>
+            <th>课程教室</th>
+            <th>教室最大容量</th>
+            <th>学生名单</th>
+        </tr>
+        {% for i in clas_list %}
+        <tr>
+            <td>{{ i.classid }}</td>
+            <td>{{ i.name }}</td>
+            {% if i.state == 0 %}
+            <td>{{ i.time }}</td>
+            <td>{{ i.classroom }}</td>
+            {% elif i.state == 1 %}
+            <td><p style="color:red">{{ i.time }}</p></td>
+            <td><p style="color:red>">{{ i.classroom }}</p></td>
+            {% endif %}
+            <td>{{ i.max_num }}</td>
+            <td><a href="./student_list/?classid={{ i.classid }}">学生名单</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% include "footer.html" %}
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

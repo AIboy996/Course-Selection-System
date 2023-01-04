@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>调课申请</title>
+</head>
+<body>
+{% include "nav.html" %}
+{% if request.session.week < 3 %}
+    <p>     </p>
+<h4><b>功能暂未开放</b> </h4>
+<p>    </p>
+{% else %}
+
+<p>     </p>
+<h4><b>{{ request.session.user_name }}老师您好，可以进行调课申请：</b> </h4>
+<p>    </p>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">调课申请</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">申请历史</button>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+   <table border=1 class="table table-sm">
+        <tr>
+            <th>课程序号</th>
+            <th>课程名称</th>
+            <th>课程教室</th>
+            <th>原定时间</th>
+            <th>前往调课</th>
+        </tr>
+        {% for i in clas_list %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.name }}</td>
+            <td>{{ i.classroom }}</td>
+            <td>{{ i.time }}</td>
+            <td><a href="./adjust_views/{{ i.id }}/"><button type="button" class="btn btn-primary btn-sm"
+            >调课</button></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+      <p style="color:red">{{ err }}</p>
+  </div>
+  <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+      <table border=1 class="table table-sm">
+        <tr>
+            <th>课程序号</th>
+            <th>课程名称</th>
+            <th>调整教室</th>
+            <th>原始时间</th>
+            <th>调整时间</th>
+            <th>调整周</th>
+            <th>状态</th>
+        </tr>
+        {% for i in record_list %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.name }}</td>
+            <td>{{ i.classroom }}</td>
+            <td>{{ i.from_time }}</td>
+            <td>{{ i.time }}</td>
+            <td>{{ i.week }}</td>
+            <td>{% if i.state == "已通过" %}
+                <p style="color:brown">{{ i.state }}</p>
+                {% elif i.state == "本周生效" %}
+                <p style="color:red">{{ i.state }}</p>
+                {% elif i.state == "已完成" %}
+                <p style="color:green">{{ i.state }}</p>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+  </div>
+</div>
+{% endif %}
+{% include "footer.html" %}
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

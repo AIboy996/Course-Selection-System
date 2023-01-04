@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>评教查询</title>
+</head>
+<body>
+{% include "nav.html" %}
+{% if request.session.week < 10 %}
+    <p>     </p>
+<h4><b>功能暂未开放</b> </h4>
+<p>    </p>
+{% else %}
+<p>     </p>
+<h4><b>{{ request.session.user_name }} 老师您好,您的评教结果如下:</b> </h4>
+<p>    </p>
+<table border=1 class="table table-sm">
+        <tr>
+            <th>课程序号</th>
+            <th>课程名称</th>
+            <th>收到评教数量</th>
+            <th>查看详情</th>
+        </tr>
+        {% for i in eva_list %}
+        <tr>
+            <td>{{ i.classid }}</td>
+            <td>{{ i.name }}</td>
+            <td>{{ i.num|default:0 }}/{{ i.all_num }}</td>
+            <td><a href="./evaluation_detail/?classid={{ i.classid }}">→详情</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+{% include "footer.html" %}
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

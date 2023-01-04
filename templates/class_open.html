@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开课申请</title>
+</head>
+<body>
+    {% include "nav.html" %}
+    {% if request.session.week > 0 %}
+    <p>     </p>
+<h4><b>功能暂未开放</b> </h4>
+<p>    </p>
+{% else %}
+<p>     </p>
+<h4><b>{{ request.session.user_name }}老师您好，请输入开课信息：</b> </h4>
+<p>    </p>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">申请记录</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">课程申请</button>
+  </li>
+      </ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+    <table border=1 class="table table-sm">
+        <tr>
+            <th>课程名称</th>
+            <th>申请状态</th>
+            <th>详细信息</th>
+        </tr>
+        {% for i in temp_clas_list %}
+        <tr>
+            <td>{{ i.name }}</td>
+            {% if i.state == "审核中" %}
+            <td><p style="color:brown">{{ i.state }}</p></td>
+            {% elif i.state == "已通过" %}
+            <td><p style="color:green">{{ i.state }}</p></td>
+            {% elif i.state == "被驳回" %}
+            <td><p style="color:green">{{ i.state }}</p></td>
+            {% endif %}
+            <td> <button type="button" class="btn btn-primary"
+                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                详细信息</button>
+            {% if i.state == "被驳回" %}
+              <a href="./class_delete/?id={{ i.id }}">  <button type="button" class="btn btn-secondary"
+                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                删除</button></a>
+            {% endif %}
+            </td>
+        </tr>
+
+        <!-- Modal1 -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">课程详细信息</h1>
+                </div>
+                <div class="modal-body">
+                    <label>周学时</label><input class="form-control" type="text" placeholder= '{{ i.hours }}' aria-label="Disabled input example" disabled>
+                    <label>周数</label><input class="form-control" type="text" placeholder= '{{ i.weeks }}' aria-label="Disabled input example" disabled>
+                     <label>开设时间</label><input class="form-control" type="text" placeholder= '{{ i.time }}' aria-label="Disabled input example" disabled>
+                    <label>先修课</label><input class="form-control" type="text" placeholder= '{{ i.prerequisites }}' aria-label="Disabled input example" disabled>
+                    <label>教师信息</label><textarea class="form-control"  rows="3"   disabled randonly>{{ i.teacher_info }}</textarea>
+                    <label>课程简介</label><textarea class="form-control"  rows="4"   disabled randonly>{{ i.brief }}</textarea>
+                    <label>考试类型</label><input class="form-control" type="text" placeholder= '{{ i.exam }}' aria-label="Disabled input example" disabled>
+                    <label>评分标准</label><textarea class="form-control"  rows="2"   disabled randonly>{{ i.assessment }}</textarea>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+                        </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+        {% endfor %}
+    </table>
+  </div>
+  <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+    <form action="/class_open/" method="POST">
+      {% csrf_token %}
+      <p style="color:red">{{ err }}</p>
+        {% for field in temp_class %}
+      <label>{{ field.label }}</label>{{ field }}
+      {% endfor %}
+          <button type="submit" class="btn btn-primary me-md-2 btn-big">提交</button>
+        </form>
+  </div>
+</div>
+
+
+{% endif %}
+{% include "footer.html" %}
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

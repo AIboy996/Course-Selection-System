@@ -11,6 +11,11 @@
 </head>
 <body>
 {% include "nav.html" %}
+{% if request.session.week < 10 %}
+    <p>     </p>
+<h4><b>功能暂未开放</b> </h4>
+<p>    </p>
+{% else %}
 <p>     </p>
 <h4><b>{{ stu_name}} 同学你好,未完成的评教任务如下:</b> </h4>
 <p>    </p>
@@ -71,7 +76,7 @@
     </div>
             {% endfor %}
 
-
+{% endif %}
 {% include "footer.html" %}
 
 <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>

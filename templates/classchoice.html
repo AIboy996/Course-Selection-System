@@ -11,7 +11,11 @@
 </head>
 <body>
 {% include "nav.html" %}
-
+{% if request.session.week > 3 %}
+    <p>     </p>
+<h4><b>功能暂未开放</b> </h4>
+<p>    </p>
+{% else %}
 <table border="1" class="table table-sm">
     <tr>
         <th>Sunday</th>
@@ -157,6 +161,7 @@
 </div>
 {% include "footer.html" %}
 
+{% endif %}
 <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.js' %}"></script>
 

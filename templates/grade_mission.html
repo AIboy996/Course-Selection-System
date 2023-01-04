@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成绩发布</title>
+</head>
+<body>
+{% include "nav.html" %}
+{% if request.session.week < 10 %}
+    <p>     </p>
+<h4><b>功能暂未开放</b> </h4>
+<p>    </p>
+{% else %}
+<p>     </p>
+<h4><b>{{ request.session.user_name }}老师您好，请查看您的成绩任务：</b> </h4>
+<p>    </p>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">未完成</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">已完成</button>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+   <table border=1 class="table table-sm">
+        <tr>
+            <th>课程序号</th>
+            <th>课程名称</th>
+            <th>状态</th>
+            <th>输入成绩</th>
+        </tr>
+        {% for i in cla_uncomp_list %}
+        <tr>
+            <td>{{ i.classid }}</td>
+            <td>{{ i.name }}</td>
+            {% if i.state == "被驳回" %}
+            <td><p style="color:red">{{ i.state }}</p></td>
+            {% else %}
+            <td><p style="color:blue">剩余{{ i.num }}位</p></td>
+            {% endif %}
+            <td><a href="./grade_set/{{ i.classid }}/"><button type="button" class="btn btn-primary btn-sm"
+            >成绩输入</button></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+  </div>
+  <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+      <table border=1 class="table table-sm">
+        <tr>
+            <th>课程序号</th>
+            <th>课程名称</th>
+            <th>状态</th>
+            <th>查看成绩</th>
+        </tr>
+        {% for i in cla_comp_list %}
+        <tr>
+            <td>{{ i.classid }}</td>
+            <td>{{ i.name }}</td>
+            <td>{% if i.state == "审核中" %}
+                <p style="color:brown">{{ i.state }}</p>
+                {% elif i.state == "已发布" %}
+                <p style="color:green">{{ i.state }}</p>
+                {% endif %}
+            </td>
+            <td><a href="./grade_views/?classid={{ i.classid }}"><button type="button" class="btn btn-primary btn-sm"
+            >成绩查看</button></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+  </div>
+</div>
+{% endif %}
+{% include "footer.html" %}
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

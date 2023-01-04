@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课程查询</title>
+</head>
+<body>
+{% include "nav.html" %}
+    <p>     </p>
+<h4><b>{{ request.session.user_name }}，学校课程如下：</b> </h4>
+<p>    </p>
+    <form action="/class_view" method="POST">
+        {% csrf_token %}
+    <div class="row">
+  <div class="col">
+    <input type="text" class="form-control" name="classid" placeholder="课程序号"
+                                aria-label="City"></div>
+  <div class="col">
+     <input type="text" class="form-control" name="code" placeholder="课程代码"
+                                aria-label="City"></div>
+        <div class="col"><input type="text" class="form-control" name="name" placeholder="课程名称"
+                                aria-label="City"></div>
+      <div class="col"><input type="text" class="form-control" name="teacher" placeholder="教师姓名"
+                                aria-label="City"></div>
+         <div class="col">
+              <button type="submit" class="btn btn-primary" >学生名单</button>
+         </div>
+
+</div>
+    </form>
+
+
+<table border=1 class="table table-sm">
+        <tr>
+            <th>课程序号</th>
+            <th>课程代码</th>
+            <th>课程姓名</th>
+            <th>课程老师</th>
+          <th>学生名单</th>
+        </tr>
+        {% for i in clas_list %}
+        <tr>
+            <td>{{ i.classid }}</td>
+            <td>{{ i.code }}</td>
+            <td>{{ i.name }}</td>
+           <td>{{ i.teacher }}</td>
+            <td><a href="/class_view/student_list/?classid={{ i.classid }}"><button type="button" class="btn btn-primary btn-sm"
+            >学生名单</button></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% include "footer.html" %}
+
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+
+</body>
+</html>

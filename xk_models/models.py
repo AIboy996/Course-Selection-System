@@ -50,7 +50,7 @@ class ClassInfo(models.Model):
     detail = models.OneToOneField(
         "ClassDetail", on_delete=models.CASCADE, verbose_name="详细信息")  # 一对一
     # 课程教室安排
-    classroom = models.ForeignKey("Classroom", on_delete=models.CASCADE,verbose_name="教室安排")  # 多对多关系
+    classroom = models.ForeignKey("Classroom", on_delete=models.CASCADE, verbose_name="教室安排")  # 多对多关系
 
 
 class Teacher(models.Model):
@@ -67,7 +67,6 @@ class Teacher(models.Model):
         default='其他',
         max_length=10, verbose_name="职称"
     )
-
 
 class Classroom(models.Model):
     """教室信息"""
@@ -141,3 +140,67 @@ class Program(models.Model):
     grade = models.SmallIntegerField(verbose_name="年级")
     advice = models.CharField(max_length=30, verbose_name="建议课程")
 
+
+class Week(models.Model):
+    '''周数（虚拟表）'''
+    week = models.SmallIntegerField(verbose_name="第几周")
+
+
+class Message(models.Model):
+    '''通知发布'''
+    from_id = models.ForeignKey("User", on_delete=models.CASCADE, verbose_name="发布者", related_name="from_id")
+    to_id = models.ForeignKey("User", on_delete=models.CASCADE, verbose_name="接受者", related_name="to_id")
+    message = models.CharField(max_length=200, verbose_name="通知")
+
+
+class Class_adjustment(models.Model):
+    '''课程调整'''
+    classid = models.ForeignKey("ClassInfo", on_delete=models.CASCADE, verbose_name="课程编号")
+    week = models.SmallIntegerField(verbose_name="调课周")
+    from_time = models.CharField(max_length=50, verbose_name="原来时间")
+    time = models.CharField(max_length=50, verbose_name="调课时间")
+    room = models.ForeignKey("Classroom", on_delete=models.CASCADE, verbose_name="调整教室")
+
+
+class Temp_Class(models.Model):
+    '''开课审核'''
+    teacher_id = models.ForeignKey("User", on_delete=models.CASCADE, verbose_name="教师工号")
+    # 课程名称
+    name = models.CharField(max_length=30, verbose_name="课程名称")
+    # 课程周学时
+    hours = models.CharField(max_length=12, verbose_name="周学时")
+    # 共计周数，例如：18
+    weeks = models.SmallIntegerField(verbose_name="周数")
+    # 排课时间
+    time = models.CharField(max_length=50, verbose_name="排课时间")
+    # 先修课程
+    prerequisites = models.CharField(max_length=30, default='无', verbose_name="先修课程")
+    # 主讲教师简介
+    teacher_info = models.CharField(max_length=200, default='', verbose_name="教师简介")
+    # 教学内容安排
+    brief = models.CharField(max_length=500, default='', verbose_name="教学内容")
+    # 考核方式
+    exam = models.CharField(
+        choices=[('开卷考试', '开卷考试'),
+                 ('闭卷考试', '闭卷考试'),
+                 ('半开卷考试', '半开卷考试'),
+                 ('课程论文', '课程论文'),
+                 ('其他', '其他')],
+        default='其他',
+        max_length=10, verbose_name="考核方式"
+    )
+    # 评分细则
+    assessment = models.CharField(max_length=200, default='', verbose_name="评分细则")
+    # 审核结果
+    views = models.SmallIntegerField(verbose_name="审核状况", default=0)
+
+
+class Temp_Score(models.Model):
+    '''成绩审核'''
+    classid = models.ForeignKey("classinfo", on_delete=models.CASCADE, verbose_name="课程id")
+    user_id = models.ForeignKey("User", on_delete=models.CASCADE, verbose_name="学生id")
+    score = models.CharField(max_length=10, default="未发布", verbose_name="成绩")
+    audit = models.SmallIntegerField(verbose_name="审核状态")
+
+    class Meta:
+        unique_together = (("classid", "user_id"),)

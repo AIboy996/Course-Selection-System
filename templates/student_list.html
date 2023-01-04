@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生课表</title>
+</head>
+<body>
+{% include "nav.html" %}
+<p>     </p>
+<h4><b>{{ classid }} : {{ class_name }}学生名单</b> </h4>
+<p>    </p>
+<table border=1 class="table table-sm">
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>专业</th>
+        </tr>
+        {% for i in stu_list %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.name }}</td>
+            <td>{{ i.major }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% include "footer.html" %}
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

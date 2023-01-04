@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成绩审核</title>
+</head>
+<body>
+{% include "nav.html" %}
+{% if request.session.week < 10 %}
+    <p>     </p>
+<h4><b>功能暂未开放</b> </h4>
+<p>    </p>
+{% else %}
+<p>     </p>
+<h4><b>{{ request.session.user_name }}老师您好，请查看您的成绩审核任务：</b> </h4>
+<p>    </p>
+<table border=1 class="table table-sm">
+        <tr>
+            <th>课程序号</th>
+            <th>课程名称</th>
+            <th>人数</th>
+            <th>教师</th>
+            <th>状态</th>
+            <th>输入成绩</th>
+        </tr>
+        {% for i in clas_list %}
+        <tr>
+            <td>{{ i.classid }}</td>
+            <td>{{ i.name }}</td>
+            <td>{{ i.num }}</td>
+            <td>{{ i.teacher }}</td>
+            {% if i.state == "已提交" %}
+            <td><p style="color:blue">{{ i.state }}</p></td>
+            <td><a href="./grade_detail/{{ i.classid }}"><button type="button" class="btn btn-primary btn-sm"
+            >成绩审核</button></a></td>
+             {% elif i.state == "被驳回" %}
+            <td><p style="color:red">{{ i.state }}</p></td>
+            <td><button type="button" class="btn btn-primary btn-sm" disabled
+            >成绩审核</button></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+{% include "footer.html" %}
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.js' %}"></script>
+</body>
+</html>

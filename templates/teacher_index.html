@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome!</title>
+</head>
+<body>
+    {% include "nav.html" %}
+<h2>申请导航：</h2>
+    <ul>
+        <li><a href="/class_adj">申请调课</a></li>
+        <li><a href="/class_open">申请开课</a></li>
+    </ul>
+    <h2>课程导航：</h2>
+    <ul>
+    <li><a href="/teach_table">授课课表</a></li>
+    <li><a href="/grade_mission">成绩发布</a></li>
+    <li><a href="/evaluation_view">评教查询</a></li>
+    </ul>
+    <h2>信息中心：</h2>
+    <ul>
+    <li><a href="/message">相关信息</a></li>
+    </ul>
+    {% include "footer.html" %}
+</body>
+</html>
