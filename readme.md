@@ -1,12 +1,30 @@
-[toc]
-
 ## 前置要求
 
 本项目需要用[docker](https://www.docker.com/)来部署，在Windows系统下安装docker可以参考文章[Install On Windows](https://docs.docker.com/desktop/install/windows-install/)。
 
 ## 服务部署
 
-### 容器运行
+### 1、配置文件修改（如有必要）
+
+本项目的配置文件为[docker-compose.yml](./blob/main/docker-compose.yml)。
+
+***需要特别注意*** 如果宿主机器上的**8000**或**3306**端口已经被占用，需要修改端口映射否则容器将无法运行。
+
+举例来说，下面是配置文件中django的默认端口映射，它把容器的8000端口映射到宿主机器的8000端口
+
+```yaml
+ports:
+	- 8000:8000
+```
+
+如有冲突，可以修改为：
+
+```yaml
+ports:
+	- 8000:任意可用端口
+```
+
+### 2、容器运行
 
 在项目文件夹打开终端，输入命令：
 
@@ -18,11 +36,11 @@ docker-compose up -d --build
 
 ![image-20230105012459086](assets/image-20230105012459086.png)
 
-可以在docker后台看到这两个容器的运行情况：
+可以在docker后台看到这两个容器的运行情况*<u>（由于mysql服务启动需要较长时间，在此期间django会不断报错并且重启，稍等片刻即可）</u>*：
 
 ![image-20230105012505847](assets/image-20230105012505847.png)
 
-### 数据导入
+### 3、数据导入
 
 ***等待两个容器都启动完毕后***，在mysql的terminal运行下面的命令导入数据：
 
@@ -34,7 +52,17 @@ mysql --user='root' --password='123456' --database='xk' < '/xk.sql'
 
 ![image-20230105012420664](assets/image-20230105012420664.png)
 
+
+
 ## 页面介绍
+
+### 时间操纵
+
+出于演示需求，需要***手动调节*** 当前是学期的第几周，例如调节为第2周（以下语句需要连接数据库执行）：
+
+```sql
+UPDATE xk_models_week SET xk_models_week.week=2 WHERE xk_models_week.id=1;
+```
 
 ### admin
 
