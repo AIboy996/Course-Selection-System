@@ -29,3 +29,5 @@ services:
     environment:
       MYSQL_DATABASE : "xk"
       MYSQL_ROOT_PASSWORD : 123456
+    volumes:
+      - ./SQLfile:/SQLfile
