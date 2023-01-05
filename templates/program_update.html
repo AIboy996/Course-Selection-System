@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{% extends "admin_index.html"%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>培养方案更新</title>
-</head>
+{% block pagetitle %}
+<title>培养方案更新</title>
+{% endblock pagetitle %}
+
+{% block content %}
+
 <body>
-{% include "nav.html" %}
 {% if request.session.week > 0 %}
     <p>     </p>
 <h4><b>功能暂未开放</b> </h4>
@@ -96,8 +92,4 @@
     <p>     </p>
 <p style="color:red">{{ err }}</p>
 {% endif %}
-{% include "footer.html" %}
-<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.js' %}"></script>
-</body>
-</html>
+{% endblock content %}

@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{% extends "admin_index.html"%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>审核成绩</title>
-</head>
-<body>
-{% include "nav.html" %}
+{% block pagetitle %}
+<title>审核成绩</title>
+{% endblock pagetitle %}
+
+{% block content %}
+
 <p>     </p>
 <h4><b>{{ request.session.user_name }} 老师您好,请查看{{ classid }}课程评分</b> </h4>
 <p>    </p>
@@ -76,8 +71,4 @@
         </div>
     </div>
 </div>
-{% include "footer.html" %}
-<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.js' %}"></script>
-</body>
-</html>
+{% endblock content %}

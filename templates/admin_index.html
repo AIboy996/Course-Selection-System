@@ -1,28 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "index.html"%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome!</title>
-</head>
-<body>
-    {% include "nav.html" %}
-<h2>审核导航：</h2>
-    <ul>
-        <li><a href="/class_audit">开课审核</a></li>
-        <li><a href="/grade_audit">成绩审核</a></li>
-    </ul>
-    <h2>课务导航：</h2>
-    <ul>
-    <li><a href="/class_view">课程查询</a></li>
-    <li><a href="/program_update">培养方案更新</a></li>
-    </ul>
-    <h2>信息中心：</h2>
-    <ul>
-    <li><a href="/message">相关信息</a></li>
-    </ul>
-    {% include "footer.html" %}
-</body>
-</html>
+{% block sidebar-links %}
+<li>
+    <a href="/class_audit/" class="nav-link link-dark">
+        <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#speedometer2" />
+        </svg>
+        开课审核
+    </a>
+</li>
+<li>
+    <a href="/grade_audit/" class="nav-link link-dark">
+        <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#speedometer2" />
+        </svg>
+        成绩审核
+    </a>
+</li>
+<hr>
+<li>
+    <a href="/class_view/" class="nav-link link-dark">
+        <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#speedometer2" />
+        </svg>
+        课程查询
+    </a>
+</li><li>
+    <a href="/program_update/" class="nav-link link-dark">
+        <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#speedometer2" />
+        </svg>
+        培养方案更新
+    </a>
+</li>
+<hr>
+<li>
+    <a href="/message/" class="nav-link link-dark">
+        <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#speedometer2" />
+        </svg>
+        相关信息
+    </a>
+</li>
+{% endblock sidebar-links %}

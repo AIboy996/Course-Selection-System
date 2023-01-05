@@ -38,7 +38,7 @@ def is_login(func):
 def login(request):
     # 不允许重复登录
     if request.session.get('is_login', False):
-        return redirect('/index')
+        return redirect(f"/{request.session['index_page']}")
 
     if request.method == "POST":
         login_form = UserForm(request.POST)
@@ -49,7 +49,7 @@ def login(request):
             try:
                 user = User.objects.get(email=email)
                 if user.password == password:
-                    # 学生基本信息在登入时就传入系统
+                    # 用户基本信息在登入时就传入系统
                     request.session['is_login'] = True
                     request.session['user_id'] = user.user_id
                     request.session['user_name'] = user.name
@@ -60,7 +60,10 @@ def login(request):
                     # 假定为第5周
                     request.session["week"] = Week.objects.last().week
                     request.session["err"] = ""
-                    request.session['index_page'] = index_page.get(request.session['indetity'])
+                    request.session['index_page'] = index_page.get(
+                        request.session['identity'])
+                    request.session['index_page_file'] = request.session['index_page'] + '.html'
+                    request.session['week'] = Week.objects.get(id=1).week
                     if request.session["identity"] == 0:
                         request.session["grade"] = Student.objects.get(
                             user_id_id=user.user_id).grade
@@ -105,14 +108,14 @@ def login(request):
                         request.session["cla_id"] = cla_id
 
                         return redirect('/index/')
-                    if request.session["identity"] == 1:
+                    elif request.session["identity"] == 1:
                         request.session["title"] = Teacher.objects.get(
                             name=user.name).title
                         teach_id = [x.classid for x in
                                     list(ClassInfo.objects.filter(teacher_id=user.user_id))]
                         request.session["teach_id"] = teach_id
                         return redirect("/teacher_index/")
-                    if request.session["identity"] == 3:
+                    elif request.session["identity"] == 3:
                         return redirect("/admin_index/")
                 else:
                     message = "密码不正确！"
@@ -203,7 +206,6 @@ def classinfo(request):
     if request.method == "POST":
         form = SelectionForm(request.POST)
         if form.is_valid():
-            # print(form.cleaned_data["exam"])
             rec = 0
             for l, v in form.cleaned_data.items():
                 if (l == "classid") and v:
@@ -497,7 +499,6 @@ def class_table(request):
     cla_id = request.session["cla_id"]
     cla_list = []
     week = request.session["week"]
-    print(cla_id)
     for row in range(14):
         for col in range(7):
             class_table[row][col] = {"normal": 0,
@@ -1091,8 +1092,6 @@ def adjust_views(request, classid):
                             continue
                         elif set(range(int(t.split("，")[1].split("-")[0]),
                                        int(t.split("，")[1].split("-")[1]) + 1)).intersection(set(class_time)):
-                            print(classid)
-                            print(1)
                             request.session["err"] = "存在学生不满足调课要求"
                             locations = "/class_adj/adjust_views/" + classid
                             return redirect(locations, locals())

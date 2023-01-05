@@ -6,7 +6,7 @@
 
 {% block content %}
 <h2>欢迎来到个人中心</h2>
-<h3>您好! {{ identity }}，您的相关信息如下：</h3>
+<h3>{{ identity }}您好，您的相关信息如下：</h3>
 <ul>
     <li>姓名：</li>
     <p>{{ name }}</p>
@@ -21,4 +21,6 @@
     <li>年级：</li>
     <p>{{ grade }}</p>
 </ul>
+<hr>
+系统暂未支持修改密码操作，敬请期待后续更新
 {% endblock content %}

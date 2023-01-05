@@ -1,25 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{% extends "teacher_index.html"%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>调课详情</title>
-</head>
-<body>
-    {% include "nav.html" %}
-{% if request.session.week < 3 %}
-    <p>     </p>
-<h4><b>功能暂未开放</b> </h4>
-<p>    </p>
-{% else %}
-    <p>     </p>
-<h4><b>{{ classid }}调课前详细信息</b> </h4>
-<p>    </p>
-<table border=1 class="table table-sm">
+{% block pagetitle %}
+<title>调课详情</title>
+{% endblock pagetitle %}
+
+{% block content %}
+{% if request.session.week < 3 %} <p>
+    </p>
+    <h4><b>功能暂未开放</b> </h4>
+    <p> </p>
+    {% else %}
+    <p> </p>
+    <h4><b>{{ classid }}调课前详细信息</b> </h4>
+    <p> </p>
+    <table border=1 class="table table-sm">
         <tr>
             <th>课程序号</th>
             <th>课程名称</th>
@@ -36,23 +30,23 @@
         {% endfor %}
     </table>
     <p style="color:red">{{ err }}</p>
-    <p>     </p>
-<h4><b>调课选择查询</b> </h4>
-<p>    </p>
+    <p> </p>
+    <h4><b>调课选择查询</b> </h4>
+    <p> </p>
     <form action="/class_adj/adjust_views/{{ classid }}" method="POST">
         {% csrf_token %}
-    <div class="row">
-  <div class="col">
-    <select class="form-select" name="from_time" aria-label="Default select example">
+        <div class="row">
+            <div class="col">
+                <select class="form-select" name="from_time" aria-label="Default select example">
 
-        <option selected>...</option>
-        {% for j in time_group %}}
-        <option value={{ j }}>{{ j }}</option>
-        {% endfor %}
-    </select>
-  </div>
-  <div class="col">
-     <select class="form-select" name="days" aria-label="Default select example">
+                    <option selected>...</option>
+                    {% for j in time_group %}}
+                    <option value={{ j }}>{{ j }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col">
+                <select class="form-select" name="days" aria-label="Default select example">
                     <option selected>周一</option>
                     <option value="周二">周二</option>
                     <option value="周三">周三</option>
@@ -62,18 +56,18 @@
                     <option value="周日">周日</option>
                 </select>
 
-  </div>
-        <div class="col"><input type="number" class="form-control" name="first_class" placeholder="开始节数"
-                                aria-label="City"></div>
-         <div class="col">
-              <button type="submit" class="btn btn-primary" >查询教室</button>
-         </div>
+            </div>
+            <div class="col"><input type="number" class="form-control" name="first_class" placeholder="开始节数"
+                    aria-label="City"></div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">查询教室</button>
+            </div>
 
-</div>
+        </div>
     </form>
 
 
-<table border=1 class="table table-sm">
+    <table border=1 class="table table-sm">
         <tr>
             <th>课程序号</th>
             <th>调课时间</th>
@@ -85,15 +79,10 @@
             <td>{{ classid }}</td>
             <td>{{ class_form }}</td>
             <td>{{ i }}</td>
-            <td><a href="/adjust/?classid={{ classid }}&&class_form={{ class_form }}&&classroom={{ i }}"><button type="button" class="btn btn-primary btn-sm"
-            >选择</button></a></td>
+            <td><a href="/adjust/?classid={{ classid }}&&class_form={{ class_form }}&&classroom={{ i }}"><button
+                        type="button" class="btn btn-primary btn-sm">选择</button></a></td>
         </tr>
         {% endfor %}
     </table>
     {% endif %}
-{% include "footer.html" %}
-
-<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.js' %}"></script>
-</body>
-</html>
+    {% endblock content %}

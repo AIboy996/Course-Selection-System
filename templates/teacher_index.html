@@ -1,29 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "index.html"%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome!</title>
-</head>
-<body>
-    {% include "nav.html" %}
-<h2>申请导航：</h2>
-    <ul>
-        <li><a href="/class_adj">申请调课</a></li>
-        <li><a href="/class_open">申请开课</a></li>
-    </ul>
-    <h2>课程导航：</h2>
-    <ul>
-    <li><a href="/teach_table">授课课表</a></li>
-    <li><a href="/grade_mission">成绩发布</a></li>
-    <li><a href="/evaluation_view">评教查询</a></li>
-    </ul>
-    <h2>信息中心：</h2>
-    <ul>
-    <li><a href="/message">相关信息</a></li>
-    </ul>
-    {% include "footer.html" %}
-</body>
-</html>
+{% block sidebar-links %}
+<li>
+    <a href="/class_adj/" class="nav-link link-dark">
+        <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#speedometer2" />
+        </svg>
+        申请调课
+    </a>
+</li>
+<li>
+    <a href="/class_open/" class="nav-link link-dark">
+        <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#speedometer2" />
+        </svg>
+        申请开课
+    </a>
+</li>
+<hr>
+<li>
+    <a href="/teach_table/" class="nav-link link-dark">
+        <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#speedometer2" />
+        </svg>
+        授课课表
+    </a>
+</li>
+<li>
+    <a href="/grade_mission/" class="nav-link link-dark">
+        <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#speedometer2" />
+        </svg>
+        成绩发布
+    </a>
+</li>
+<li>
+    <a href="/evaluation_view/" class="nav-link link-dark">
+        <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#speedometer2" />
+        </svg>
+        评教查询
+    </a>
+</li>
+<hr>
+<li>
+    <a href="/message/" class="nav-link link-dark">
+        <svg class="bi pe-none me-2" width="16" height="16">
+            <use xlink:href="#speedometer2" />
+        </svg>
+        相关信息
+    </a>
+</li>
+{% endblock sidebar-links %}

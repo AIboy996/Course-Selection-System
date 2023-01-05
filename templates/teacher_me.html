@@ -1,21 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人中心</title>
-</head>
+{% extends "teacher_index.html"%}
+
+{% block pagetitle %}
+<title>个人中心</title>
+{% endblock pagetitle %}
+
+{% block content %}
+
 <body>
     {% include "nav.html" %}
     <h2>欢迎来到个人中心</h2>
-    <h3>您好!  {{ identity }}，您的相关信息如下：</h3>
+    <h3>{{ identity }}您好，您的相关信息如下：</h3>
     <ul>
-        <li>姓名：</li><p>{{ request.session.user_name  }}</p>
-        <li>工号：</li><p>{{ request.session.user_id  }}</p>
-        <li>邮箱：</li><p>{{ request.session.user_email }}</p>
-        <li>职称：</li><p>{{ request.session.title }}</p>
+        <li>姓名：</li>
+        <p>{{ request.session.user_name }}</p>
+        <li>工号：</li>
+        <p>{{ request.session.user_id }}</p>
+        <li>邮箱：</li>
+        <p>{{ request.session.user_email }}</p>
+        <li>职称：</li>
+        <p>{{ request.session.title }}</p>
     </ul>
     {% include "footer.html" %}
 </body>
-</html>
+{% endblock content %}
