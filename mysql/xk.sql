@@ -149,7 +149,8 @@ VALUES (1,4,'周四，6-8','MANA110010.01',4,'周三，3-5'),
 
 -- 导入新课申请信息
 INSERT INTO `xk_models_temp_class` (`id`,`name`,`hours`,`weeks`,`time`,`prerequisites`,`teacher_info`,`brief`,`exam`,`assessment`,`views`,`teacher_id_id`) 
-VALUES (2,'深度管理学','4',16,'周一，3-5；周二，3-5','无','老管，青年研究员','深度管理学','课程论文','平时10%；作业20%；讨论10%；论文60%',1,'laoguan');
+VALUES (1,'深度管理学','4',16,'周一，3-5；周二，3-5','无','老管，青年研究员','深度管理学','课程论文','平时10%；作业20%；讨论10%；论文60%',0,'laoguan'),
+(2,'统计计算','2',16,'周三，1-4','无','蒋斐宇，青年研究员','统计计算','开卷考试','平时10%；作业20%；讨论10%；期末60%',0,'jiangfeiyu');
 
 -- 导入成绩审核信息
 INSERT INTO `xk_models_temp_score` (`id`,`score`,`audit`,`classid_id`,`user_id_id`) 

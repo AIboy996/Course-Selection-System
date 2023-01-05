@@ -5,14 +5,24 @@
 {% endblock pagetitle %}
 
 {% block content %}
-<h2>欢迎来到个人中心</h2>
-<h3>您好! {{ identity }}，您的相关信息如下：</h3>
-<ul>
-    <li>姓名：</li>
-    <p>{{ request.session.user_name }}</p>
-    <li>工号：</li>
-    <p>{{ request.session.user_id }}</p>
-    <li>邮箱：</li>
-    <p>{{ request.session.user_email }}</p>
-</ul>
+<h4>{{ identity }}您好，您的相关信息如下：</h4>
+<div class="form-floating mb-1">
+    <input type="request.session.user_name" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput"
+        value="{{ request.session.user_name }}">
+    <label for="floatingEmptyPlaintextInput">姓名</label>
+</div>
+<div class="form-floating mb-1">
+    <input type="request.session.user_id" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput"
+        value="{{ request.session.user_name }}">
+    <label for="floatingEmptyPlaintextInput">工号</label>
+</div>
+<div class="form-floating mb-1">
+    <input type="request.session.user_email" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput"
+        value="{{ request.session.user_name }}">
+    <label for="floatingEmptyPlaintextInput">邮箱</label>
+</div>
+<hr>
+<a href="/chang_password/">修改密码</a>
+<hr>
+*系统暂未支持修改密码操作，敬请期待后续更新
 {% endblock content %}

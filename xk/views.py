@@ -1,41 +1,55 @@
-from django.shortcuts import render, HttpResponse, redirect
-from xk_models.models import ClassInfo, Teacher, ClassDetail, User, Classchoice, Student, Program, Evaluation, Week
-from xk_models.models import Class_adjustment, Message, Temp_Score, Temp_Class, Classroom
-from .forms import UserForm, TestModelForm, SelectionForm, EvaluationForm, ScoreForm, Temp_ClassForm, \
-    Adjustment_TimeForm, Comment_Form, Admin_ClassForm, ProgramForm, Class_DayForm
-from django.db.models import Q
-from django.template import RequestContext
+# 内置库
 import copy
 import random
+# 本地文件
+from xk_models.models import ClassInfo, Teacher, ClassDetail, User, Classchoice, Student, Program, Evaluation, Week
+from xk_models.models import Class_adjustment, Message, Temp_Score, Temp_Class, Classroom
+from .forms import UserForm, SelectionForm, EvaluationForm, ScoreForm, Temp_ClassForm, \
+    Adjustment_TimeForm, Comment_Form, Admin_ClassForm, ProgramForm, Class_DayForm
+# django函数
+from django.shortcuts import render, redirect
+from django.db.models import Q
 
-'''全局变量声明'''
+
+#################### 常量 ############################
+
 week_ref = {"周日": 0, "周一": 1, "周二": 2, "周三": 3, "周四": 4, "周五": 5, "周六": 6}
-identity_dict = {0: "同学", 1: "老师", 3: "教务老师", 2: "教室管理老师"}
+identity_dict = {0: "同学", 1: "老师", 2: "教室管理老师", 3: "教务老师"}
 grade_dict = {1: "大一上", 2: "大一下", 3: "大二上",
               4: "大二下", 5: "大三上", 6: "大三下", 7: "大四上", 8: "大四下"}
 score_dict = {"A": 4, "A-": 3.7, "B+": 3.3, "B": 3, "B-": 2.7, "C+": 2.3, "C": 2, "C-": 1.7, "D+": 1.3, "D": 1,
               "D-": 0.7, "F": 0}
 view_dict = {0: "未审核", 1: "已通过", -1: "未通过"}
 index_page = {0: 'index', 1: 'teacher_index', 3: 'admin_index'}
-'''不要修改全局变量，主要做对应字典用处'''
+httpErrors = {404: ['Not Found', '页面不存在'], 403: ['Forbidden', '无权限访问此页面']}
 
 
 #################### 通用函数 ############################
-def is_login(func):
-    """装饰器，如果未登录则重定向到登录界面"""
 
-    def wrapper(*args, **kw):
-        # 这里可能出问题，注意函数传递的第一个参数是不是request
-        request = args[0]
-        if request.session.get('is_login', False) == False:
-            return redirect('/login')
-        else:
-            return func(*args, **kw)
+def error(request, error_code):
+    meaning, message = httpErrors[error_code]
+    return render(request, 'error.html', locals())
 
-    return wrapper
+def is_login(users: list):
+    """带参数的装饰器，如果未登录则重定向到登录界面"""
+    def decorator(func):
+        def wrapper(*args, **kw):
+            # 这里可能出问题，注意函数传递的第一个参数是不是request
+            request = args[0]
+            if request.session.get('is_login', False) == False:
+                # 如果没登陆，就返回登录页面
+                return redirect('/login')
+            elif all(request.session['identity'] != user for user in users):
+                # 如果不是对应的身份，则返回首页
+                return error(request, 403)
+            else:
+                return func(*args, **kw)
+        return wrapper
+    return decorator
 
 
 def login(request):
+    """登录函数，验证登录信息，并且存储用户基本信息到session"""
     # 不允许重复登录
     if request.session.get('is_login', False):
         return redirect(f"/{request.session['index_page']}")
@@ -49,6 +63,10 @@ def login(request):
             try:
                 user = User.objects.get(email=email)
                 if user.password == password:
+                    if '12345' in password:
+                        request.session['defuault_password'] = 1
+                    else:
+                        request.session['defuault_password'] = 0
                     # 用户基本信息在登入时就传入系统
                     request.session['is_login'] = True
                     request.session['user_id'] = user.user_id
@@ -127,13 +145,13 @@ def login(request):
     return render(request, 'login.html', locals())
 
 
-# 只有登陆了才能访问这个页面
-@is_login
+@is_login([0, 1, 2, 3])
 def logout(request):
     request.session.flush()
     return redirect("/login/", locals())
 
 
+@is_login([0, 1, 2, 3])
 def message(request):
     identity = request.session["identity"]
     id = request.session["user_id"]
@@ -156,6 +174,7 @@ def message(request):
     return render(request, "message.html", locals())
 
 
+@is_login([0, 1, 2, 3])
 def message_delete(request):
     if request.method == "GET":
         from_id = request.GET["from_id"]
@@ -168,7 +187,7 @@ def message_delete(request):
 
 ############### 学生相关函数 #######################
 # Home页面
-@is_login
+@is_login([0])
 def index(request):
     address = {}
     pagename = '欢迎来到选课系统'
@@ -176,7 +195,7 @@ def index(request):
     return render(request, 'index.html', locals())
 
 
-@is_login
+@is_login([0])
 def me(request):
     address = {'/': 'Home'}
     pagename = '个人中心'
@@ -192,7 +211,7 @@ def me(request):
     return render(request, 'me.html', locals())
 
 
-@is_login
+@is_login([0])
 def classinfo(request):
     address = {'/': 'Home'}
     pagename = '课程信息'
@@ -293,7 +312,7 @@ def classinfo(request):
     return render(request, 'classinfo.html', locals())
 
 
-@is_login
+@is_login([0])
 def classinfo_detail(request):
     address = {'/': 'Home', '/classinfo/': '课程信息'}
     pagename = '课程详情'
@@ -307,19 +326,7 @@ def classinfo_detail(request):
     return render(request, 'classinfo_detail.html', locals())
 
 
-def test(request):
-    form = TestModelForm()
-    print("生成了form")
-    if request.method == "POST":
-        print(form)
-        if form.is_valid():
-            print('form is valid')
-        else:
-            print('form error')
-    return render(request, 'test.html', locals())
-
-
-@is_login
+@is_login([0])
 def classchoice(request):
     address = {'/': 'Home'}
     pagename = "选课列表"
@@ -406,7 +413,7 @@ def classchoice(request):
     # 从课程信息跳入，直接定位相关课程
     if request.GET.get("classid"):
         classid = request.GET["classid"]
-        if not Classchoice.objects.filter(Q(classid_id=classid),Q(user_id_id=user_id)).exists():
+        if not Classchoice.objects.filter(Q(classid_id=classid), Q(user_id_id=user_id)).exists():
             choi_class = ClassInfo.objects.get(classid=classid)
             choi_list.append({"classid": classid,
                               "code": choi_class.code,
@@ -448,7 +455,7 @@ def classchoice(request):
     return render(request, 'classchoice.html', locals())
 
 
-@is_login
+@is_login([0])
 def program(request):
     address = {"/": "Home"}
     pagename = "培养方案推荐"
@@ -467,6 +474,7 @@ def program(request):
     return render(request, "program.html", locals())
 
 
+@is_login([0])
 def score(request):
     address = {"/": "Home"}
     pagename = "成绩查询"
@@ -494,6 +502,7 @@ def score(request):
     return render(request, "score.html", locals())
 
 
+@is_login([0])
 def class_table(request):
     address = {"/": "Home"}
     pagename = "课程表查看"
@@ -539,7 +548,7 @@ def class_table(request):
     return render(request, "classtable.html", locals())
 
 
-@is_login
+@is_login([0])
 def drop_class(request):
     if request.method == "GET":
         classid = request.GET.get("classid")
@@ -573,7 +582,7 @@ def drop_class(request):
     return redirect("/classchoice/", locals())
 
 
-@is_login
+@is_login([0])
 def add_class(request):
     if request.method == "GET":
         classid = request.GET.get("classid")
@@ -631,6 +640,7 @@ def add_class(request):
     return redirect("/classchoice/", locals())
 
 
+@is_login([0])
 def evaluation(request, classid):
     address = {"/": "Home"}
     pagename = "评教系统"
@@ -684,15 +694,25 @@ def evaluation(request, classid):
     return render(request, "evaluation.html", locals())
 
 
+@is_login([0])
+def student_note(request):
+    if request.method == 'POST':
+        request.session['note'] = request.POST['note']
+        # refer即为跳转前的链接
+        print(request.META['HTTP_REFERER'])
+        print('被盗用')
+    return redirect(request.META['HTTP_REFERER'])
+
+
 ################## 教师相关函数 ###############################
-@is_login
+@is_login([1])
 def teacher_index(request):
     address = {}
     pagename = '欢迎来到课务系统'
     return render(request, 'teacher_index.html', locals())
 
 
-@is_login
+@is_login([1])
 def teacher_me(request):
     address = {'/teacher_index': 'Home'}
     pagename = '个人中心'
@@ -700,7 +720,7 @@ def teacher_me(request):
     return render(request, "teacher_me.html", locals())
 
 
-@is_login
+@is_login([1])
 def evaluation_view(request):
     address = {'/teacher_index': 'Home'}
     pagename = '评教查询'
@@ -718,7 +738,7 @@ def evaluation_view(request):
     return render(request, "evaluation_view.html", locals())
 
 
-@is_login
+@is_login([1])
 def evaluation_detail(request):
     address = {'/teacher_index': 'Home', '/evaluation_view/': '评教查询'}
     pagename = '评教详情'
@@ -737,7 +757,7 @@ def evaluation_detail(request):
     return render(request, "evaluation_detail.html", locals())
 
 
-@is_login
+@is_login([1])
 def teach_table(request):
     address = {'/teacher_index': 'Home'}
     pagename = '授课课表'
@@ -807,7 +827,7 @@ def teach_table(request):
     return render(request, "teach_table.html", locals())
 
 
-@is_login
+@is_login([1, 3])
 def student_list(request):
     address = {'/teacher_index': 'Home', '/teach_table/': '授课课表'}
     pagename = '学生名单'
@@ -825,7 +845,7 @@ def student_list(request):
     return render(request, "student_list.html", locals())
 
 
-@is_login
+@is_login([1])
 def grade_mission(request):
     address = {'/teacher_index': 'Home'}
     pagename = '成绩发布'
@@ -865,7 +885,7 @@ def grade_mission(request):
     return render(request, "grade_mission.html", locals())
 
 
-@is_login
+@is_login([1])
 def grade_set(request, classid, stu_id):
     address = {'/teacher_index': 'Home', "/grade_mission/": "成绩发布"}
     pagename = '成绩输入'
@@ -909,7 +929,7 @@ def grade_set(request, classid, stu_id):
     return render(request, "grade_set.html", locals())
 
 
-@is_login
+@is_login([1])
 def grade_delete(request, classid, stu_id):
     temp_score = Temp_Score.objects.get(
         Q(classid=classid), Q(user_id_id=stu_id)).delete()
@@ -917,7 +937,7 @@ def grade_delete(request, classid, stu_id):
     return redirect(locations, locals())
 
 
-@is_login
+@is_login([1])
 def grade_message(request, classid):
     score_num = Temp_Score.objects.filter(classid=classid).count()
     all_num = Classchoice.objects.filter(classid=classid).count()
@@ -934,7 +954,7 @@ def grade_message(request, classid):
     return redirect("/grade_mission/", locals())
 
 
-@is_login
+@is_login([1])
 def grade_views(request):
     address = {'/teacher_index': 'Home', "/grade_mission/": "成绩发布"}
     pagename = '成绩查看'
@@ -958,7 +978,7 @@ def grade_views(request):
     return render(request, "grade_views.html", locals())
 
 
-@is_login
+@is_login([1])
 def class_open(request):
     address = {'/teacher_index': 'Home'}
     pagename = '开课申请'
@@ -998,7 +1018,7 @@ def class_open(request):
     return render(request, "class_open.html", locals())
 
 
-@is_login
+@is_login([1])
 def class_delete(request):
     if request.method == "GET":
         id = request.GET["id"]
@@ -1006,7 +1026,7 @@ def class_delete(request):
     return redirect("/class_open/", locals())
 
 
-@is_login
+@is_login([1])
 def class_adj(request):
     address = {'/teacher_index': 'Home'}
     pagename = '调课申请'
@@ -1039,7 +1059,7 @@ def class_adj(request):
     return render(request, "class_adj.html", locals())
 
 
-@is_login
+@is_login([1])
 def adjust_views(request, classid):
     address = {'/teacher_index': 'Home', "/class_adj/": "调课申请"}
     pagename = '调课详情'
@@ -1143,7 +1163,7 @@ def adjust_views(request, classid):
     return render(request, "adjust_views.html", locals())
 
 
-@is_login
+@is_login([1])
 def adjust(request):
     if request.method == "GET":
         classid = request.GET["classid"]
@@ -1171,14 +1191,14 @@ def adjust(request):
 
 
 ################## 教务老师相关函数 ############
-@is_login
+@is_login([3])
 def admin_index(request):
     address = {}
     pagename = '欢迎来到课务系统'
     return render(request, 'admin_index.html', locals())
 
 
-@is_login
+@is_login([3])
 def admin_me(request):
     address = {'/admin_index': 'Home'}
     pagename = '个人中心'
@@ -1186,7 +1206,7 @@ def admin_me(request):
     return render(request, "admin_me.html", locals())
 
 
-@is_login
+@is_login([3])
 def grade_audit(request):
     address = {'/admin_index': 'Home'}
     pagename = '成绩审核'
@@ -1211,7 +1231,7 @@ def grade_audit(request):
     return render(request, "grade_audit.html", locals())
 
 
-@is_login
+@is_login([3])
 def grade_detail(request, classid):
     address = {'/admin_index': 'Home', "/grade_audit": "成绩审核"}
     pagename = '审核细节'
@@ -1260,7 +1280,7 @@ def grade_detail(request, classid):
     return render(request, "grade_detail.html", locals())
 
 
-@is_login
+@is_login([3])
 def grade_confirm(request):
     if request.method == "GET":
         classid = request.GET["classid"]
@@ -1286,7 +1306,7 @@ def grade_confirm(request):
     return redirect("/grade_audit/", locals())
 
 
-@is_login
+@is_login([3])
 def class_view(request):
     address = {'/admin_index': 'Home'}
     pagename = "课程查看"
@@ -1350,7 +1370,7 @@ def class_view(request):
     return render(request, "class_view.html", locals())
 
 
-@is_login
+@is_login([3])
 def admin_student_list(request):
     address = {'/admin_index': 'Home', '/class_view/': '课程查询'}
     pagename = '学生名单'
@@ -1368,7 +1388,7 @@ def admin_student_list(request):
     return render(request, "student_list.html", locals())
 
 
-@is_login
+@is_login([3])
 def program_update(request):
     address = {'/admin_index': 'Home'}
     pagename = '培养方案更新'
@@ -1397,7 +1417,7 @@ def program_update(request):
     return render(request, "program_update.html", locals())
 
 
-@is_login
+@is_login([3])
 def program_set(request, classid):
     if request.method == "POST":
         prog = ProgramForm(request.POST)
@@ -1412,7 +1432,7 @@ def program_set(request, classid):
         return redirect("/program_update/", locals())
 
 
-@is_login
+@is_login([3])
 def class_audit(request):
     address = {'/admin_index': 'Home'}
     pagename = '开课审核'
@@ -1430,7 +1450,7 @@ def class_audit(request):
     return render(request, "class_audit.html", locals())
 
 
-@is_login
+@is_login([3])
 def class_set(request, id):
     address = {'/admin_index': 'Home', "/class_audit": '开课审核'}
     pagename = '课程细节'
@@ -1518,7 +1538,7 @@ def class_set(request, id):
     return render(request, "class_set.html", locals())
 
 
-@is_login
+@is_login([3])
 def settle(request):
     if request.method == "GET":
         id = request.GET["id"]

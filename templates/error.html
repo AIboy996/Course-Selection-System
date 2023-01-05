@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh">
+    {% load static %}
+    <head>
+        <meta charset="UTF-8" />
+        <title>{{ error_code }}</title>
+        <link href="{% static 'css/bootstrap.css'%}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="d-flex align-items-center justify-content-center vh-100">
+            <div class="text-center">
+                <h1 class="display-1 fw-bold">{{ error_code }}</h1>
+                <p class="fs-3"> <span class="text-danger">{{ meaning }}</span></p>
+                <p class="lead">
+                    {{ message }}
+                  </p>
+                <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-primary">返回先前的页面</a>
+            </div>
+        </div>
+    </body>
+</html>

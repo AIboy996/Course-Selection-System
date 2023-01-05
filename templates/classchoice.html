@@ -105,17 +105,16 @@
             </tr>
             {% for i in choi_list %}
             <tr>
-                <<td style="vertical-align:middle; color:black">td>{{ i.classid }}</td>
-                    <td style="vertical-align:middle; color:black">{{ i.code }}</td>
-                    <td style="vertical-align:middle; color:black">{{ i.name }}</td>
-                    <td style="vertical-align:middle; color:black">{{ i.department }}</td>
-                    <td style="vertical-align:middle; color:black">{{ i.credit }}</td>
-                    <td style="vertical-align:middle; color:black">{{ i.teacher }}</td>
-                    <td style="vertical-align:middle; color:black">{{ i.hour }}</td>
-                    <td style="vertical-align:middle; color:black">{{ i.time }}</td>
-                    <td style="vertical-align:middle; color:black">{{ i.exam }}</td>
-                    <td style="vertical-align:middle; color:black"><a href="./add_class/?classid={{ i.classid }}">选课</a>
-                    </td>
+                <td style="vertical-align:middle; color:black">{{ i.classid }}</td>
+                <td style="vertical-align:middle; color:black">{{ i.code }}</td>
+                <td style="vertical-align:middle; color:black">{{ i.name }}</td>
+                <td style="vertical-align:middle; color:black">{{ i.department }}</td>
+                <td style="vertical-align:middle; color:black">{{ i.credit }}</td>
+                <td style="vertical-align:middle; color:black">{{ i.teacher }}</td>
+                <td style="vertical-align:middle; color:black">{{ i.hour }}</td>
+                <td style="vertical-align:middle; color:black">{{ i.time }}</td>
+                <td style="vertical-align:middle; color:black">{{ i.exam }}</td>
+                <td style="vertical-align:middle; color:black"><a href="./add_class/?classid={{ i.classid }}">选课</a></td>
             </tr>
             {% endfor %}
         </table>
@@ -148,7 +147,6 @@
                 <td style="vertical-align:middle; color:black">{{ i.exam }}</td>
                 <td style="vertical-align:middle"><a href="../classinfo/detail/?classid={{ i.classid }}">→详情</a></td>
                 <td style="vertical-align:middle"><a href="./drop_class/?classid={{ i.classid }}">退课</a></td>
-                <!--                <td>0</td>-->
             </tr>
             {% endfor %}
         </table>

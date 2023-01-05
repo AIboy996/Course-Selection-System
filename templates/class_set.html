@@ -1,5 +1,6 @@
 {% extends "admin_index.html"%}
-
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
 {% block pagetitle %}
 <title>开课详情</title>
 {% endblock pagetitle %}
@@ -7,7 +8,7 @@
 {% block content %}
 <p> </p>
 <h4><b>详细信息</b> </h4>
-<p> </p>
+<br>
 <table border=1 class="table table-sm">
     <tr>
         <th>随机课程序号</th>
@@ -31,19 +32,28 @@
 
     </tr>
 </table>
-<p> </p>
+<br>
 <h4><b>其他信息</b></h4>
-<ul>
-    <li>课程简介</li>
-    <p>{{ clas_dict.brief }}</p>
-    <li>教师信息</li>
-    <p>{{ clas_dict.teacher_info }}</p>
-    <li>评分标准</li>
-    <p>{{ clas_dict.assessment }}</p>
-</ul>
-
-<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    驳回</button>
+<div class="form-floating mb-1">
+    <input type="email" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput"
+        value="{{ clas_dict.brief }}">
+    <label for="floatingEmptyPlaintextInput">课程简介</label>
+</div>
+<div class="form-floating mb-1">
+    <input type="email" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput"
+        value="{{ clas_dict.teacher_info }}">
+    <label for="floatingEmptyPlaintextInput">教师信息</label>
+</div>
+<div class="form-floating mb-1">
+    <input type="email" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput"
+        value="{{ clas_dict.assessment }}">
+    <label for="floatingEmptyPlaintextInput">评分标准</label>
+</div>
+<hr>
+<div class="d-grid gap-1 d-md-flex justify-content-md">
+    <button type="button" class="btn btn-danger btn-lg" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">驳回</button>
+</div>
 
 <!--  modal-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,7 +76,6 @@
         </div>
     </div>
 </div>
-</div>
 
 <p style="color:red">{{ err }}</p>
 <p> </p>
@@ -75,20 +84,14 @@
 
 <form action="/class_audit/class_set/{{ clas_dict.id }}" method="POST">
     {% csrf_token %}
-    <div class="row">
-        <div class="col">
-            <select class="form-select" name="days" aria-label="Default select example">
-
+    <div class="d-flex flex-row mb-2">
+        <div><select class="form-select" name="days" aria-label="Default select example">
                 <option selected>...</option>
                 {% for j in time_combo %}}
-                <option value={{ j }}>{{ j }}</option>
+                <option value='{{ j }}'>{{ j }}</option>
                 {% endfor %}
-            </select>
-        </div>
-        <div class="col">
-            <button type="submit" class="btn btn-primary">查询教室</button>
-        </div>
-
+        </select></div>
+        <div><button type="submit" class="btn btn-primary">查询教室</button></div>
     </div>
 </form>
 

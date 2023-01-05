@@ -5,20 +5,22 @@
 {% endblock pagetitle %}
 
 {% block content %}
-<h2>您正在查看的是：</h2>
-<h3>{{ teachername }}{{ teachertitle }} 开设的 {{ classname }}({{ classid }})</h3>
-<ul>
-    {% for i,j in detail.items %}
-    <li>{{ i }}</li>
-    <p>{{ j }}</p>
-    {% endfor %}
-    {% if request.session.week < 4 %} <li><a href="../../classchoice/?classid={{ classid }}">进入选课界面</a></li>
-        <p> </p>
-        {% else %}
-        {% endif %}
-        <li><a href="../">返回课程查看界面</a></li>
+<h4>您正在查看的是：</h4>
+<hr>
+<div class="form-floating mb-1">
+    <b>{{ teachername }}{{ teachertitle }}</b> 开设的 <b>{{ classname }}({{ classid }})</b>
+</div>
+{% for i,j in detail.items %}
+<div class="form-floating mb-1">
+    <input type="email" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput" value="{{ j }}">
+    <label for="floatingEmptyPlaintextInput">{{ i }}</label>
+</div>
+{% endfor %}
+<hr>
+{% if request.session.week < 4 %} 
+<a href="../../classchoice/?classid={{ classid }}">→进入选课界面</a>
+<br>
+{% endif %}
 
-</ul>
-
-
+<a href="../">→返回课程查看界面</a>
 {% endblock content %}

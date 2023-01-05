@@ -5,22 +5,40 @@
 {% endblock pagetitle %}
 
 {% block content %}
-<h2>欢迎来到个人中心</h2>
-<h3>{{ identity }}您好，您的相关信息如下：</h3>
-<ul>
-    <li>姓名：</li>
-    <p>{{ name }}</p>
-    <li>学号：</li>
-    <p>{{ id }}</p>
-    <li>邮箱：</li>
-    <p>{{ email }}</p>
-    <li>专业：</li>
-    <p>{{ major }}</p>
-    <li>入校年份：</li>
-    <p>{{ year }}</p>
-    <li>年级：</li>
-    <p>{{ grade }}</p>
-</ul>
+<h4>{{ identity }}您好，您的相关信息如下：</h4>
 <hr>
-系统暂未支持修改密码操作，敬请期待后续更新
+<div class="form-floating mb-1">
+    <input type="email" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput"
+        value="{{ name }}">
+    <label for="floatingEmptyPlaintextInput">姓名</label>
+</div>
+<div class="form-floating mb-1">
+    <input type="email" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput"
+        value="{{ id }}">
+    <label for="floatingEmptyPlaintextInput">学号</label>
+</div>
+<div class="form-floating mb-1">
+    <input type="email" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput"
+        value="{{ email }}">
+    <label for="floatingEmptyPlaintextInput">邮箱</label>
+</div>
+<div class="form-floating mb-1">
+    <input type="email" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput"
+        value="{{ major }}">
+    <label for="floatingEmptyPlaintextInput">专业</label>
+</div>
+<div class="form-floating mb-1">
+    <input type="email" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput"
+        value="{{ year }}">
+    <label for="floatingEmptyPlaintextInput">入校年份</label>
+</div>
+<div class="form-floating mb-1">
+    <input type="email" readonly class="form-control-plaintext" id="floatingEmptyPlaintextInput"
+        value="{{ grade }}">
+    <label for="floatingEmptyPlaintextInput">年纪</label>
+</div>
+<hr>
+<a href="/chang_password/">修改密码</a>
+<hr>
+*系统暂未支持修改密码操作，敬请期待后续更新
 {% endblock content %}
