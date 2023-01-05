@@ -22,10 +22,10 @@
         </tr>
         {% for i in clas_list %}
         <tr>
-            <td>{{ i.id }}</td>
-            <td>{{ i.name }}</td>
-            <td>{{ i.classroom }}</td>
-            <td>{{ i.time }}</td>
+            <td style="vertical-align:middle">{{ i.id }}</td>
+            <td style="vertical-align:middle">{{ i.name }}</td>
+            <td style="vertical-align:middle">{{ i.classroom }}</td>
+            <td style="vertical-align:middle">{{ i.time }}</td>
         </tr>
         {% endfor %}
     </table>
@@ -76,10 +76,11 @@
         </tr>
         {% for i in clas_classroom %}
         <tr>
-            <td>{{ classid }}</td>
-            <td>{{ class_form }}</td>
-            <td>{{ i }}</td>
-            <td><a href="/adjust/?classid={{ classid }}&&class_form={{ class_form }}&&classroom={{ i }}"><button
+            <td style="vertical-align:middle">{{ classid }}</td>
+            <td style="vertical-align:middle">{{ class_form }}</td>
+            <td style="vertical-align:middle">{{ i }}</td>
+            <td style="vertical-align:middle"><a
+                    href="/adjust/?classid={{ classid }}&&class_form={{ class_form }}&&classroom={{ i }}"><button
                         type="button" class="btn btn-primary btn-sm">选择</button></a></td>
         </tr>
         {% endfor %}

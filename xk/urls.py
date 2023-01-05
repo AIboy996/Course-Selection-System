@@ -19,6 +19,7 @@ from . import views
 
 urlpatterns = [
     ## 通用
+    re_path(r'^$', views.login),
     path('login/', views.login),
     path('logout/', views.logout),
     path('admin/', admin.site.urls),
