@@ -16,9 +16,9 @@
     </tr>
     {% for i in mess_list %}
     <tr>
-        <td>{{ i.from }}</td>
-        <td>{{ i.message }}</td>
-        <td><a href="./message_delete/?from_id={{ i.from_id }}"><button type="button"
+        <td style="vertical-align:middle">{{ i.from }}</td>
+        <td style="vertical-align:middle">{{ i.message }}</td>
+        <td style="vertical-align:middle"><a href="./message_delete/?from_id={{ i.from_id }}"><button type="button"
                     class="btn btn-secondary btn-sm">删除</button></a></td>
     </tr>
     {% endfor %}

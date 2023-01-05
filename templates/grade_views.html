@@ -4,26 +4,26 @@
 <title>课程成绩查看</title>
 {% endblock pagetitle%}
 {% block content %}
-<p>     </p>
+<p> </p>
 <h4><b>{{ request.session.user_name }} 老师您好,请查看{{ classid }}课程评分</b> </h4>
-<p>    </p>
+<p> </p>
 <table border=1 class="table table-sm">
-        <tr>
-            <th>学生学号</th>
-            <th>姓名</th>
-            <th>分数状态</th>
-        </tr>
-        {% for i in score_list %}
-        <tr>
-            <td>{{ i.id }}</td>
-            <td>{{ i.name }}</td>
-            <td>{{ i.score }}</td>
-
+    <tr>
+        <th>学生学号</th>
+        <th>姓名</th>
+        <th>分数状态</th>
     </tr>
-            {% endfor %}
-    </table>
+    {% for i in score_list %}
+    <tr>
+        <td style="vertical-align:middle">{{ i.id }}</td>
+        <td style="vertical-align:middle">{{ i.name }}</td>
+        <td style="vertical-align:middle">{{ i.score }}</td>
+    </tr>
+    {% endfor %}
+</table>
 <p style="color:red">{{ err }}</p>
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <a href="../"><button class="btn btn-primary me-md-2 btn-big" type="button">返回</button>
- </a></div>
- {% endblock content %}
+    <a href="../"><button class="btn btn-primary me-md-2 btn-big" type="button">返回</button>
+    </a>
+</div>
+{% endblock content %}

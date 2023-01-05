@@ -20,18 +20,19 @@
         <th>考试信息</th>
     </tr>
     <tr>
-        <td>{{ clas_dict.classid }}</td>
-        <td>{{ clas_dict.code }}</td>
-        <td>{{ clas_dict.name }}</td>
-        <td>{{ clas_dict.teacher }}</td>
-        <td>{{ clas_dict.hours }}</td>
-        <td>{{ clas_dict.weeks }}</td>
-        <td>{{ clas_dict.pre }}</td>
-        <td>{{ clas_dict.exam }}</td>
+        <td style="vertical-align:middle; color:black">{{ clas_dict.classid }}</td>
+        <td style="vertical-align:middle; color:black">{{ clas_dict.code }}</td>
+        <td style="vertical-align:middle; color:black">{{ clas_dict.name }}</td>
+        <td style="vertical-align:middle; color:black">{{ clas_dict.teacher }}</td>
+        <td style="vertical-align:middle; color:black">{{ clas_dict.hours }}</td>
+        <td style="vertical-align:middle; color:black">{{ clas_dict.weeks }}</td>
+        <td style="vertical-align:middle; color:black">{{ clas_dict.pre }}</td>
+        <td style="vertical-align:middle; color:black">{{ clas_dict.exam }}</td>
 
     </tr>
 </table>
-<h2>其他信息</h2>
+<p> </p>
+<h4><b>其他信息</b></h4>
 <ul>
     <li>课程简介</li>
     <p>{{ clas_dict.brief }}</p>
@@ -41,7 +42,7 @@
     <p>{{ clas_dict.assessment }}</p>
 </ul>
 
-<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
     驳回</button>
 
 <!--  modal-->
@@ -69,7 +70,7 @@
 
 <p style="color:red">{{ err }}</p>
 <p> </p>
-<h4><b>开课选择查询</b> </h4>
+<h2><b>开课选择查询</b> </h2>
 <p> </p>
 
 <form action="/class_audit/class_set/{{ clas_dict.id }}" method="POST">
@@ -99,8 +100,8 @@
     </tr>
     {% for i in clas_classroom %}
     <tr>
-        <td>{{ i }}</td>
-        <td><a
+        <td style="vertical-align:middle; color:black">{{ i }}</td>
+        <td style="vertical-align:middle"><a
                 href="/settle/?id={{ id }}&&credit={{ credit }}&&classroom={{ i }}&&classid={{ clas_dict.classid }}&&time={{ from_time_group }}">
                 <button type="button" class="btn btn-primary btn-sm">选择</button></a></td>
     </tr>

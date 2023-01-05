@@ -23,10 +23,10 @@
         </tr>
         {% for i in eva_list %}
         <tr>
-            <td>{{ i.classid }}</td>
-            <td>{{ i.name }}</td>
-            <td>{{ i.num|default:0 }}/{{ i.all_num }}</td>
-            <td><a href="./evaluation_detail/?classid={{ i.classid }}">→详情</a></td>
+            <td style="vertical-align:middle">{{ i.classid }}</td>
+            <td style="vertical-align:middle">{{ i.name }}</td>
+            <td style="vertical-align:middle">{{ i.num|default:0 }}/{{ i.all_num }}</td>
+            <td style="vertical-align:middle"><a href="./evaluation_detail/?classid={{ i.classid }}">→详情</a></td>
         </tr>
         {% endfor %}
     </table>

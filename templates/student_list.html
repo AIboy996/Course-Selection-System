@@ -1,4 +1,4 @@
-{% extends request.session.index_page_file %}
+{%  extends request.session.index_page_file %}
 
 {% block pagetitle %}
 <title>学生课表</title>
@@ -17,9 +17,9 @@
     </tr>
     {% for i in stu_list %}
     <tr>
-        <td>{{ i.id }}</td>
-        <td>{{ i.name }}</td>
-        <td>{{ i.major }}</td>
+        <td style="vertical-align:middle">{{ i.id }}</td>
+        <td style="vertical-align:middle">{{ i.name }}</td>
+        <td style="vertical-align:middle">{{ i.major }}</td>
     </tr>
     {% endfor %}
 </table>

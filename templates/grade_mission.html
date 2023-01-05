@@ -34,18 +34,18 @@
         </tr>
         {% for i in cla_uncomp_list %}
         <tr>
-          <td>{{ i.classid }}</td>
-          <td>{{ i.name }}</td>
+          <td style="vertical-align:middle">{{ i.classid }}</td>
+          <td style="vertical-align:middle">{{ i.name }}</td>
           {% if i.state == "被驳回" %}
-          <td>
-            <p style="color:red">{{ i.state }}</p>
+          <td style="vertical-align:middle;color:red">
+          {{ i.state }}
           </td>
           {% else %}
-          <td>
-            <p style="color:blue">剩余{{ i.num }}位</p>
+          <td style="vertical-align:middle;color:blue">
+           剩余{{ i.num }}位
           </td>
           {% endif %}
-          <td><a href="./grade_set/{{ i.classid }}/"><button type="button"
+          <td style="vertical-align:middle"><a href="./grade_set/{{ i.classid }}/"><button type="button"
                 class="btn btn-primary btn-sm">成绩输入</button></a></td>
         </tr>
         {% endfor %}
@@ -61,15 +61,14 @@
         </tr>
         {% for i in cla_comp_list %}
         <tr>
-          <td>{{ i.classid }}</td>
-          <td>{{ i.name }}</td>
-          <td>{% if i.state == "审核中" %}
-            <p style="color:brown">{{ i.state }}</p>
+          <td style="vertical-align:middle">{{ i.classid }}</td>
+          <td style="vertical-align:middle">{{ i.name }}</td>
+         {% if i.state == "审核中" %}
+         <td style="vertical-align:middle;color:brown"> {{ i.state }}</td>
             {% elif i.state == "已发布" %}
-            <p style="color:green">{{ i.state }}</p>
+          <td style="vertical-align:middle;color:green"> {{ i.state }}</td>
             {% endif %}
-          </td>
-          <td><a href="./grade_views/?classid={{ i.classid }}"><button type="button"
+          <td style="vertical-align:middle"> <a href="./grade_views/?classid={{ i.classid }}"><button type="button"
                 class="btn btn-primary btn-sm">成绩查看</button></a></td>
         </tr>
         {% endfor %}

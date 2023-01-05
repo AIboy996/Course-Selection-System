@@ -34,21 +34,21 @@
       </tr>
       {% for i in temp_clas_list %}
       <tr>
-        <td>{{ i.name }}</td>
+        <td style="vertical-align:middle; color:black">{{ i.name }}</td>
         {% if i.state == "审核中" %}
-        <td>
-          <p style="color:brown">{{ i.state }}</p>
+        <td style="vertical-align:middle; color:brown">
+          {{ i.state }}
         </td>
         {% elif i.state == "已通过" %}
-        <td>
-          <p style="color:green">{{ i.state }}</p>
+        <td style="vertical-align:middle; color:green">
+        {{ i.state }}
         </td>
         {% elif i.state == "被驳回" %}
-        <td>
-          <p style="color:green">{{ i.state }}</p>
+        <td style="vertical-align:middle; color:red">
+         {{ i.state }}
         </td>
         {% endif %}
-        <td> <button type="button" class="btn btn-primary"
+        <td style="vertical-align:middle"><button type="button" class="btn btn-primary"
             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
             data-bs-toggle="modal" data-bs-target="#exampleModal">
             详细信息</button>
@@ -101,7 +101,10 @@
       {% for field in temp_class %}
       <label>{{ field.label }}</label>{{ field }}
       {% endfor %}
+      <p></p>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
       <button type="submit" class="btn btn-primary me-md-2 btn-big">提交</button>
+        </div>
     </form>
   </div>
 </div>

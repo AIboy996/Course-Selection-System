@@ -20,12 +20,11 @@
             <th>教材评价</th>
         </tr>
         {% for i in detail_list %}
-        <tr>
-            <td>{{ i.order }}</td>
-            <td>{{ i.course }}</td>
-            <td>{{ i.classroom }}</td>
-            <td>{{ i.textbook }}</td>
-        </tr>
+        <td style="vertical-align:middle">{{ i.order }}</td>
+        <td style="vertical-align:middle">{{ i.course }}</td>
+        <td style="vertical-align:middle">{{ i.classroom }}</td>
+        <td style="vertical-align:middle">{{ i.textbook }}</td>
+    </tr>
         {% endfor %}
     </table>
 <p><a href="../">返回评教查询</a></p>

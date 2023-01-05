@@ -8,7 +8,7 @@
 <p> </p>
 <h4><b>{{ request.session.user_name }}，学校课程如下：</b> </h4>
 <p> </p>
-<form action="/class_view" method="POST">
+<form action="/class_view/" method="POST">
     {% csrf_token %}
     <div class="row">
         <div class="col">
@@ -39,11 +39,11 @@
     </tr>
     {% for i in clas_list %}
     <tr>
-        <td>{{ i.classid }}</td>
-        <td>{{ i.code }}</td>
-        <td>{{ i.name }}</td>
-        <td>{{ i.teacher }}</td>
-        <td><a href="/class_view/student_list/?classid={{ i.classid }}"><button type="button"
+        <td style="vertical-align:middle; color:black">{{ i.classid }}</td>
+        <td style="vertical-align:middle; color:black">{{ i.code }}</td>
+        <td style="vertical-align:middle; color:black">{{ i.name }}</td>
+        <td style="vertical-align:middle; color:black">{{ i.teacher }}</td>
+        <td style="vertical-align:middle; color:black"><a href="/class_view/student_list/?classid={{ i.classid }}"><button type="button"
                     class="btn btn-primary btn-sm">学生名单</button></a></td>
     </tr>
     {% endfor %}

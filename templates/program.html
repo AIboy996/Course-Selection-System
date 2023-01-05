@@ -12,7 +12,7 @@
     <tr>
         <th>课程代码</th>
         <th>课程名称</th>
-        {% if request.session.week < 3 %} <th>前往选课</th>
+        {% if request.session.week < 4 %} <th>前往选课</th>
             {% else %}
             {% endif %}
             <th>查看细节</th>
@@ -21,7 +21,7 @@
     <tr>
         <td>{{ i.code }}</td>
         <td>{{ i.name }}</td>
-        {% if request.session.week < 3 %} <td><a href="../classchoice/?code={{ i.code }}">前往选课</a></td>
+        {% if request.session.week < 4 %} <td><a href="../classchoice/?code={{ i.code }}">前往选课</a></td>
             {% else %}
             {% endif %}
             <td><a href="../classinfo/?code={{ i.code }}">查看细节</a></td>

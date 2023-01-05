@@ -25,10 +25,10 @@
         </tr>
         {% for i in clas_list %}
         <tr>
-            <td>{{ i.num }}</td>
-            <td>{{ i.name }}</td>
-            <td>{{ i.teacher }}</td>
-            <td><a href="./class_set/{{ i.id }}"><button type="button" class="btn btn-primary btn-sm">开课确认</button></a>
+            <td style="vertical-align:middle; color:black">{{ i.num }}</td>
+            <td style="vertical-align:middle; color:black">{{ i.name }}</td>
+            <td style="vertical-align:middle; color:black">{{ i.teacher }}</td>
+            <td style="vertical-align:middle"><a href="./class_set/{{ i.id }}"><button type="button" class="btn btn-primary btn-sm">开课确认</button></a>
             </td>
         </tr>
         {% endfor %}

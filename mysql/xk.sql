@@ -1,6 +1,7 @@
 -- Active: 1669828159887@@127.0.0.1@3306@xk
 
 
+
 -- 导入教学周信息
 INSERT INTO `xk_models_week` (`id`,`week`) VALUES (1,5);
 

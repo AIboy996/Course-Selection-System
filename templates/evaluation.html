@@ -25,18 +25,17 @@
         </tr>
         {% for i in uneva_list %}
         <tr>
-            <td>{{ i.classid }}</td>
-            <td>{{ i.name }}</td>
-            <td>{{ i.teacher }}</td>
-            <td>{{ i.classroom }}</td>
-            <td>
-                {% if i.state == '未完成' %}
-                <p style="color:blue"> {{ i.state }} </p>
-                {% else %}
-                <p style="color:red"> {{ i.state }} </p>
-                {% endif %}
-            </td>
-            <td>
+            <td style="vertical-align:middle">{{ i.classid }}</td>
+            <td style="vertical-align:middle">{{ i.name }}</td>
+            <td style="vertical-align:middle">{{ i.teacher }}</td>
+            <td style="vertical-align:middle">{{ i.classroom }}</td>
+
+            {% if i.state == '未完成' %}
+            <td style="vertical-align:middle;color:blue"> {{ i.state }}</td>
+            {% else %}
+            <td style="vertical-align:middle">{{ i.state }} </td>
+            {% endif %}
+            <td style="vertical-align:middle">
                 <button type="button" class="btn btn-primary"
                     style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
                     data-bs-toggle="modal" data-bs-target="#exampleModal">

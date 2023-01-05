@@ -34,11 +34,11 @@
         </tr>
         {% for i in clas_list %}
         <tr>
-            <td>{{ i.id }}</td>
-            <td>{{ i.name }}</td>
-            <td>{{ i.classroom }}</td>
-            <td>{{ i.time }}</td>
-            <td><a href="./adjust_views/{{ i.id }}/"><button type="button" class="btn btn-primary btn-sm"
+            <td style="vertical-align:middle">{{ i.id }}</td>
+            <td style="vertical-align:middle">{{ i.name }}</td>
+            <td style="vertical-align:middle">{{ i.classroom }}</td>
+            <td style="vertical-align:middle">{{ i.time }}</td>
+            <td style="vertical-align:middle"><a href="./adjust_views/{{ i.id }}/"><button type="button" class="btn btn-primary btn-sm"
             >调课</button></a></td>
         </tr>
         {% endfor %}
@@ -58,20 +58,19 @@
         </tr>
         {% for i in record_list %}
         <tr>
-            <td>{{ i.id }}</td>
-            <td>{{ i.name }}</td>
-            <td>{{ i.classroom }}</td>
-            <td>{{ i.from_time }}</td>
-            <td>{{ i.time }}</td>
-            <td>{{ i.week }}</td>
-            <td>{% if i.state == "已通过" %}
-                <p style="color:brown">{{ i.state }}</p>
+            <td style="vertical-align:middle">{{ i.id }}</td>
+            <td style="vertical-align:middle">{{ i.name }}</td>
+            <td style="vertical-align:middle">{{ i.classroom }}</td>
+            <td style="vertical-align:middle">{{ i.from_time }}</td>
+            <td style="vertical-align:middle">{{ i.time }}</td>
+            <td style="vertical-align:middle">{{ i.week }}</td>
+            {% if i.state == "已通过" %}
+            <td style="vertical-align:middle; color:brown">{{ i.state }}</td>
                 {% elif i.state == "本周生效" %}
-                <p style="color:red">{{ i.state }}</p>
+            <td style="vertical-align:middle;color:#FF0000">{{ i.state }}</td>
                 {% elif i.state == "已完成" %}
-                <p style="color:green">{{ i.state }}</p>
+            <td style="vertical-align:middle;color:green">  {{ i.state }}</td>
                 {% endif %}
-            </td>
         </tr>
         {% endfor %}
     </table>

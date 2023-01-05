@@ -22,11 +22,9 @@
     <tr>
         {% for item in items %}
         {% if item.normal == 1 %}
-        <td>
-            <p style="color:red">{{ item.context |default:"-"}}</p>
-        </td>
+        <td style="color:#FF0000">{{ item.context |default:"-"}}</td>
         {% elif item.normal == 0 %}
-        <td>{{ item.context |default:"-"}}</td>
+        <td style="vertical-align:middle">{{ item.context |default:"-"}}</td>
         {% endif %}
         {% endfor %}
     </tr>
@@ -44,21 +42,17 @@
     </tr>
     {% for i in clas_list %}
     <tr>
-        <td>{{ i.classid }}</td>
-        <td>{{ i.name }}</td>
+        <td style="vertical-align:middle">{{ i.classid }}</td>
+        <td style="vertical-align:middle">{{ i.name }}</td>
         {% if i.state == 0 %}
-        <td>{{ i.time }}</td>
-        <td>{{ i.classroom }}</td>
+        <td style="vertical-align:middle">{{ i.time }}</td>
+        <td style="vertical-align:middle">{{ i.classroom }}</td>
         {% elif i.state == 1 %}
-        <td>
-            <p style="color:red">{{ i.time }}</p>
-        </td>
-        <td>
-            <p style="color:red">{{ i.classroom }}</p>
-        </td>
+        <td style="vertical-align:middle;color:#FF0000">{{ i.time }}</td>
+        <td style="vertical-align:middle;color:#FF0000">{{ i.classroom }}</td>
         {% endif %}
-        <td>{{ i.max_num }}</td>
-        <td><a href="./student_list/?classid={{ i.classid }}">学生名单</a></td>
+        <td style="vertical-align:middle">{{ i.max_num }}</td>
+        <td style="vertical-align:middle"><a href="./student_list/?classid={{ i.classid }}">学生名单</a></td>
     </tr>
     {% endfor %}
 </table>

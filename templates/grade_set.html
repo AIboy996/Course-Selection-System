@@ -5,26 +5,26 @@
 {% endblock pagetitle%}
 {% block content %}
 
-<p>     </p>
+<p> </p>
 <h4><b>{{ request.session.user_name }} 老师您好,请继续{{ classid }}课程评分</b> </h4>
-<p>    </p>
+<p> </p>
 <table border=1 class="table table-sm">
-        <tr>
-            <th>学生学号</th>
-            <th>姓名</th>
-            <th>分数状态</th>
-            <th>成绩操作</th>
-        </tr>
-        {% for i in score_uncomp_list %}
-        <tr>
-            <td>{{ i.id }}</td>
-            <td>{{ i.name }}</td>
-            <td>{{ i.score }}</td>
-            <td> <button type="button" class="btn btn-primary btn-sm"
-                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <tr>
+        <th>学生学号</th>
+        <th>姓名</th>
+        <th>分数状态</th>
+        <th>成绩操作</th>
+    </tr>
+    {% for i in score_uncomp_list %}
+    <tr>
+        <td style="vertical-align:middle">{{ i.id }}</td>
+        <td style="vertical-align:middle">{{ i.name }}</td>
+        <td style="vertical-align:middle">{{ i.score }}</td>
+        <td style="vertical-align:middle"> <button type="button" class="btn btn-primary btn-sm"
+                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+                data-bs-toggle="modal" data-bs-target="#exampleModal">
                 输入</button></td>
-
+    </tr>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -34,23 +34,23 @@
                 </div>
                 <div class="modal-body">
                     <form action="/grade_mission/grade_set/{{ i.classid }}/{{ i.id }}/" method="POST">
-                            {% csrf_token %}
+                        {% csrf_token %}
                         <label>成绩输入</label>
                         <select class="form-select" name="score" placeholder="分数类型" aria-label="Default select example">
-                    <option selected>未发布</option>
-                    <option value="A">A</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B">B</option>
-                    <option value="B-">B-</option>
-                    <option value="C+">C+</option>
-                    <option value="C">C</option>
-                    <option value="C-">C-</option>
-                    <option value="D+">D+</option>
-                    <option value="D">D</option>
-                    <option value="D-">D-</option>
+                            <option selected>未发布</option>
+                            <option value="A">A</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B">B</option>
+                            <option value="B-">B-</option>
+                            <option value="C+">C+</option>
+                            <option value="C">C</option>
+                            <option value="C-">C-</option>
+                            <option value="D+">D+</option>
+                            <option value="D">D</option>
+                            <option value="D-">D-</option>
 
-                </select>
+                        </select>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary">提交</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
@@ -61,21 +61,22 @@
         </div>
     </div>
 
-        {% endfor %}
-        {% for i in score_comp_list %}
-        <tr>
-            <td>{{ i.id }}</td>
-            <td>{{ i.name }}</td>
-            <td>{{ i.score }}</td>
-            <td><a href="./{{ i.id }}/grade_delete/"> <button type="button" class="btn btn-secondary btn-sm"
-                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
-                            >撤回
-                </button></a></td>
     {% endfor %}
+    {% for i in score_comp_list %}
+    <tr>
+        <td style="vertical-align:middle">{{ i.id }}</td>
+        <td style="vertical-align:middle">{{ i.name }}</td>
+        <td style="vertical-align:middle">{{ i.score }}</td>
+        <td style="vertical-align:middle"><a href="./{{ i.id }}/grade_delete/"> <button type="button"
+                    class="btn btn-secondary btn-sm"
+                    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">撤回
+                </button></a></td>
     </tr>
-    </table>
+    {% endfor %}
+</table>
 <p style="color:red">{{ err }}</p>
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <a href="./grade_message/"><button class="btn btn-primary me-md-2 btn-big" type="button">完成</button>
- </a></div>
- {% endblock content %}
+    <a href="./grade_message/"><button class="btn btn-primary me-md-2 btn-big" type="button">完成</button>
+    </a>
+</div>
+{% endblock content %}

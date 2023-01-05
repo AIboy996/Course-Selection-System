@@ -406,26 +406,9 @@ def classchoice(request):
     # 从课程信息跳入，直接定位相关课程
     if request.GET.get("classid"):
         classid = request.GET["classid"]
-        choi_class = ClassInfo.objects.get(classid=classid)
-        choi_list.append({"classid": classid,
-                          "code": choi_class.code,
-                          "department": choi_class.department,
-                          "credit": choi_class.credit,
-                          "teacher": choi_class.teacher.name,
-                          "hour": choi_class.detail.hours,
-                          "exam": choi_class.detail.exam,
-                          "name": choi_class.name,
-                          "time": choi_class.detail.time})
-        return render(request, "classchoice.html", locals())
-
-    # 从培养方案进入，直接定位相关课程
-    if request.GET.get("code"):
-        code = request.GET["code"]
-        code_choice = [x.classid for x
-                       in list(ClassInfo.objects.filter(code=code))]
-        for id in code_choice:
-            choi_class = ClassInfo.objects.get(classid=id)
-            choi_list.append({"classid": id,
+        if not Classchoice.objects.filter(Q(classid_id=classid),Q(user_id_id=user_id)).exists():
+            choi_class = ClassInfo.objects.get(classid=classid)
+            choi_list.append({"classid": classid,
                               "code": choi_class.code,
                               "department": choi_class.department,
                               "credit": choi_class.credit,
@@ -434,6 +417,25 @@ def classchoice(request):
                               "exam": choi_class.detail.exam,
                               "name": choi_class.name,
                               "time": choi_class.detail.time})
+            return render(request, "classchoice.html", locals())
+
+    # 从培养方案进入，直接定位相关课程
+    if request.GET.get("code"):
+        code = request.GET["code"]
+        code_choice = [x.classid for x
+                       in list(ClassInfo.objects.filter(code=code))]
+        for id in code_choice:
+            if not Classchoice.objects.filter(Q(classid_id=id), Q(user_id_id=user_id)).exists():
+                choi_class = ClassInfo.objects.get(classid=id)
+                choi_list.append({"classid": id,
+                                  "code": choi_class.code,
+                                  "department": choi_class.department,
+                                  "credit": choi_class.credit,
+                                  "teacher": choi_class.teacher.name,
+                                  "hour": choi_class.detail.hours,
+                                  "exam": choi_class.detail.exam,
+                                  "name": choi_class.name,
+                                  "time": choi_class.detail.time})
         return render(request, "classchoice.html", locals())
 
     # 如果有错误（选课同一时间冲突），汇报

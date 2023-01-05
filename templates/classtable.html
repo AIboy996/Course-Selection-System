@@ -5,6 +5,7 @@
 {% endblock pagetitle %}
 
 {% block content %}
+
 <table border="1" class="table table-sm">
     <tr>
         <th>Sunday</th>
@@ -19,11 +20,9 @@
     <tr>
         {% for item in items %}
         {% if item.normal == 1 %}
-        <td>
-            <p style="color:red">{{ item.context |default:"-"}}</p>
-        </td>
+        <td style="vertical-align:middle; color:red">{{ item.context |default:"-"}}</td>
         {% elif item.normal == 0 %}
-        <td>{{ item.context |default:"-"}}</td>
+        <td style="vertical-align:middle; color:black">{{ item.context |default:"-"}}</td>
         {% endif %}
         {% endfor %}
     </tr>
@@ -41,21 +40,17 @@
     {% for i in cla_list %}
     <tr>
         {% if i.state == 1 %}
-        <td>{{ i.classid }}</td>
-        <td>{{ i.name }}</td>
-        <td>
-            <p style="color:red">{{ i.time }}</p>
-        </td>
-        <td>
-            <p style="color:red">{{ i.classroom }}</p>
-        </td>
-        <td>{{ i.max_num }}</td>
+        <td style="vertical-align:middle">{{ i.classid }}</td>
+        <td style="vertical-align:middle">{{ i.name }}</td>
+        <td style="vertical-align:middle;color:red">{{ i.time }}</td>
+        <td style="vertical-align:middle;color:red">{{ i.classroom }}</td>
+        <td style="vertical-align:middle">{{ i.max_num }}</td>
         {% elif i.state == 0 %}
-        <td>{{ i.classid }}</td>
-        <td>{{ i.name }}</td>
-        <td>{{ i.time }}</td>
-        <td>{{ i.classroom }}</td>
-        <td>{{ i.max_num }}</td>
+        <td style="vertical-align:middle">{{ i.classid }}</td>
+        <td style="vertical-align:middle">{{ i.name }}</td>
+        <td style="vertical-align:middle">{{ i.time }}</td>
+        <td style="vertical-align:middle">{{ i.classroom }}</td>
+        <td style="vertical-align:middle">{{ i.max_num }}</td>
         {% endif %}
     </tr>
     {% endfor %}

@@ -17,13 +17,16 @@
     </tr>
     {% for i in score_list %}
     <tr>
-        <td>{{ i.classid }}</td>
-        <td>{{ i.name }}</td>
-        <td>{{ i.credit }}</td>
-        <td>{{ i.score }}</td>
+        <td style="vertical-align:middle">{{ i.classid }}</td>
+        <td style="vertical-align:middle">{{ i.name }}</td>
+        <td style="vertical-align:middle">{{ i.credit }}</td>
+        <td style="vertical-align:middle">{{ i.score }}</td>
     </tr>
     {% endfor %}
 </table>
+{% if request.session.week < 10 %}
+<p>学期未到结束阶段，暂无绩点发布。祝愿同学认真学习取得好成绩！</p>
+{% else %}
 <p>您本学期的平均绩点为:{{ average_score|default:0|floatformat:2 }}。加油！</p>
-
+{% endif %}
 {% endblock content %}

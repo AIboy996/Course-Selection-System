@@ -25,17 +25,17 @@
         </tr>
         {% for i in clas_list %}
         <tr>
-            <td>{{ i.classid }}</td>
-            <td>{{ i.name }}</td>
-            <td>{{ i.num }}</td>
-            <td>{{ i.teacher }}</td>
+            <td style="vertical-align:middle">{{ i.classid }}</td>
+            <td style="vertical-align:middle">{{ i.name }}</td>
+            <td style="vertical-align:middle">{{ i.num }}</td>
+            <td style="vertical-align:middle">{{ i.teacher }}</td>
             {% if i.state == "已提交" %}
-            <td><p style="color:blue">{{ i.state }}</p></td>
-            <td><a href="./grade_detail/{{ i.classid }}"><button type="button" class="btn btn-primary btn-sm"
+            <td style="vertical-align:middle;color:blue">{{ i.state }}</td>
+            <td style="vertical-align:middle"><a href="./grade_detail/{{ i.classid }}"><button type="button" class="btn btn-primary btn-sm"
             >成绩审核</button></a></td>
              {% elif i.state == "被驳回" %}
-            <td><p style="color:red">{{ i.state }}</p></td>
-            <td><button type="button" class="btn btn-primary btn-sm" disabled
+            <td style="vertical-align:middle;color:red">{{ i.state }}</td>
+            <td style="vertical-align:middle"><button type="button" class="btn btn-primary btn-sm" disabled
             >成绩审核</button></td>
             {% endif %}
         </tr>
