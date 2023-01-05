@@ -155,14 +155,7 @@ def logout(request):
 def message(request):
     identity = request.session["identity"]
     id = request.session["user_id"]
-    if identity == 0:
-        address = {'/': 'Home'}
-    elif identity == 1:
-        address = {"/teacher_index": "Home"}
-    elif identity == 3:
-        address = {"/admin_index": "Home"}
     pagename = '信息中心'
-
     message = Message.objects.filter(to_id=id)
     mess_list = []
     for i in list(message):
@@ -189,7 +182,6 @@ def message_delete(request):
 # Home页面
 @is_login([0])
 def index(request):
-    address = {}
     pagename = '欢迎来到选课系统'
     week = Week.objects.get(id=1).week
     return render(request, 'index.html', locals())
@@ -197,7 +189,6 @@ def index(request):
 
 @is_login([0])
 def me(request):
-    address = {'/': 'Home'}
     pagename = '个人中心'
     id = request.session["user_id"]
     email = request.session["user_email"]
@@ -213,7 +204,6 @@ def me(request):
 
 @is_login([0])
 def classinfo(request):
-    address = {'/': 'Home'}
     pagename = '课程信息'
     objects = ClassInfo.objects.all()
     objects_values = list(objects.values())
@@ -314,7 +304,6 @@ def classinfo(request):
 
 @is_login([0])
 def classinfo_detail(request):
-    address = {'/': 'Home', '/classinfo/': '课程信息'}
     pagename = '课程详情'
     classid = request.GET['classid']
     clas = ClassInfo.objects.get(classid=classid)
@@ -328,7 +317,6 @@ def classinfo_detail(request):
 
 @is_login([0])
 def classchoice(request):
-    address = {'/': 'Home'}
     pagename = "选课列表"
     user_id = request.session["user_id"]
     class_table = request.session["class_table"]
@@ -457,7 +445,6 @@ def classchoice(request):
 
 @is_login([0])
 def program(request):
-    address = {"/": "Home"}
     pagename = "培养方案推荐"
     major = request.session["major"]
     grade = request.session["grade"]
@@ -476,7 +463,6 @@ def program(request):
 
 @is_login([0])
 def score(request):
-    address = {"/": "Home"}
     pagename = "成绩查询"
     cla_id = request.session["cla_id"]
     stu_id = request.session["user_id"]
@@ -504,7 +490,6 @@ def score(request):
 
 @is_login([0])
 def class_table(request):
-    address = {"/": "Home"}
     pagename = "课程表查看"
     class_table = copy.deepcopy(request.session["class_table"])
     cla_id = request.session["cla_id"]
@@ -642,7 +627,6 @@ def add_class(request):
 
 @is_login([0])
 def evaluation(request, classid):
-    address = {"/": "Home"}
     pagename = "评教系统"
     # 创建表单收取评教
     stu_id = request.session["user_id"]
@@ -696,25 +680,20 @@ def evaluation(request, classid):
 
 @is_login([0])
 def student_note(request):
-    if request.method == 'POST':
-        request.session['note'] = request.POST['note']
-        # refer即为跳转前的链接
-        print(request.META['HTTP_REFERER'])
-        print('被盗用')
+    request.session['note'] = request.POST['note']
+    # refer即为跳转前的链接
     return redirect(request.META['HTTP_REFERER'])
 
 
 ################## 教师相关函数 ###############################
 @is_login([1])
 def teacher_index(request):
-    address = {}
     pagename = '欢迎来到课务系统'
     return render(request, 'teacher_index.html', locals())
 
 
 @is_login([1])
 def teacher_me(request):
-    address = {'/teacher_index': 'Home'}
     pagename = '个人中心'
     identity = identity_dict[request.session["identity"]]
     return render(request, "teacher_me.html", locals())
@@ -722,7 +701,6 @@ def teacher_me(request):
 
 @is_login([1])
 def evaluation_view(request):
-    address = {'/teacher_index': 'Home'}
     pagename = '评教查询'
     teach_id = request.session["teach_id"]
     eva_list = []
@@ -740,7 +718,6 @@ def evaluation_view(request):
 
 @is_login([1])
 def evaluation_detail(request):
-    address = {'/teacher_index': 'Home', '/evaluation_view/': '评教查询'}
     pagename = '评教详情'
     classid = request.GET.get("classid")
     eva_list = list(Evaluation.objects.filter(classid=classid))
@@ -759,7 +736,6 @@ def evaluation_detail(request):
 
 @is_login([1])
 def teach_table(request):
-    address = {'/teacher_index': 'Home'}
     pagename = '授课课表'
     teach_table = [[{"normal": 0, "context": ""}] * 7 for i in range(14)]
     teach_id = request.session["teach_id"]
@@ -829,7 +805,6 @@ def teach_table(request):
 
 @is_login([1, 3])
 def student_list(request):
-    address = {'/teacher_index': 'Home', '/teach_table/': '授课课表'}
     pagename = '学生名单'
     if request.method == "GET":
         classid = request.GET["classid"]
@@ -847,7 +822,6 @@ def student_list(request):
 
 @is_login([1])
 def grade_mission(request):
-    address = {'/teacher_index': 'Home'}
     pagename = '成绩发布'
     teach_id = request.session["teach_id"]
     cla_uncomp_list = []
@@ -887,7 +861,6 @@ def grade_mission(request):
 
 @is_login([1])
 def grade_set(request, classid, stu_id):
-    address = {'/teacher_index': 'Home', "/grade_mission/": "成绩发布"}
     pagename = '成绩输入'
     if request.method == "POST":
         score_form = ScoreForm(request.POST)
@@ -956,7 +929,6 @@ def grade_message(request, classid):
 
 @is_login([1])
 def grade_views(request):
-    address = {'/teacher_index': 'Home', "/grade_mission/": "成绩发布"}
     pagename = '成绩查看'
     if request.method == "GET":
         score_list = []
@@ -980,7 +952,6 @@ def grade_views(request):
 
 @is_login([1])
 def class_open(request):
-    address = {'/teacher_index': 'Home'}
     pagename = '开课申请'
     temp_class = Temp_ClassForm()
     teach_id = request.session["user_id"]
@@ -1028,7 +999,6 @@ def class_delete(request):
 
 @is_login([1])
 def class_adj(request):
-    address = {'/teacher_index': 'Home'}
     pagename = '调课申请'
     teacher_id = request.session["user_id"]
     clas = ClassInfo.objects.filter(teacher_id=teacher_id)
@@ -1061,7 +1031,6 @@ def class_adj(request):
 
 @is_login([1])
 def adjust_views(request, classid):
-    address = {'/teacher_index': 'Home', "/class_adj/": "调课申请"}
     pagename = '调课详情'
     week = request.session["week"]
     adj_his = Class_adjustment.objects.filter(
@@ -1193,14 +1162,12 @@ def adjust(request):
 ################## 教务老师相关函数 ############
 @is_login([3])
 def admin_index(request):
-    address = {}
     pagename = '欢迎来到课务系统'
     return render(request, 'admin_index.html', locals())
 
 
 @is_login([3])
 def admin_me(request):
-    address = {'/admin_index': 'Home'}
     pagename = '个人中心'
     identity = identity_dict[request.session["identity"]]
     return render(request, "admin_me.html", locals())
@@ -1208,7 +1175,6 @@ def admin_me(request):
 
 @is_login([3])
 def grade_audit(request):
-    address = {'/admin_index': 'Home'}
     pagename = '成绩审核'
     id_view = Temp_Score.objects.values_list("classid_id").distinct()
     clas_list = []
@@ -1233,7 +1199,6 @@ def grade_audit(request):
 
 @is_login([3])
 def grade_detail(request, classid):
-    address = {'/admin_index': 'Home', "/grade_audit": "成绩审核"}
     pagename = '审核细节'
     temp_score = Temp_Score.objects.filter(classid_id=classid)
     rec_list = []
@@ -1308,7 +1273,6 @@ def grade_confirm(request):
 
 @is_login([3])
 def class_view(request):
-    address = {'/admin_index': 'Home'}
     pagename = "课程查看"
     clas = ClassInfo.objects.all()
     clas_list = []
@@ -1372,7 +1336,6 @@ def class_view(request):
 
 @is_login([3])
 def admin_student_list(request):
-    address = {'/admin_index': 'Home', '/class_view/': '课程查询'}
     pagename = '学生名单'
     if request.method == "GET":
         classid = request.GET["classid"]
@@ -1390,7 +1353,6 @@ def admin_student_list(request):
 
 @is_login([3])
 def program_update(request):
-    address = {'/admin_index': 'Home'}
     pagename = '培养方案更新'
     clas_all = ClassInfo.objects.all()
     clas_list = []
@@ -1434,7 +1396,6 @@ def program_set(request, classid):
 
 @is_login([3])
 def class_audit(request):
-    address = {'/admin_index': 'Home'}
     pagename = '开课审核'
     temp_class = Temp_Class.objects.filter(views=0)
     clas_list = []
@@ -1452,7 +1413,6 @@ def class_audit(request):
 
 @is_login([3])
 def class_set(request, id):
-    address = {'/admin_index': 'Home', "/class_audit": '开课审核'}
     pagename = '课程细节'
     temp_class = Temp_Class.objects.get(id=id)
     clas_classroom = []

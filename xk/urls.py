@@ -12,6 +12,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("message/", views.message),
     path("message/message_delete/", views.message_delete),
+    # 未完成的页面
     path('find_password/', lambda x:views.error(x, 404)),
     path('chang_password/', lambda x:views.error(x, 404)),
 
