@@ -1,42 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{% extends "index.html"%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>课程表查看</title>
-</head>
-<body>
-{% include "nav.html" %}
+{% block pagetitle %}
+<title>课程表查看</title>
+{% endblock pagetitle %}
+
+{% block content %}
 <p></p>
 <h4><b> {{ name }}同学您好,以下是您本学期的成绩:</b></h4>
 <p></p>
 <table border=1 class="table table-sm">
-            <tr>
-                <th>课程代码</th>
-                <th>课程名称</th>
-                <th>课程学分</th>
-                <th>课程成绩</th>
-            </tr>
-            {% for i in score_list %}
-            <tr>
-                <td>{{ i.classid }}</td>
-                <td>{{ i.name }}</td>
-                <td>{{ i.credit }}</td>
-                <td>{{ i.score }}</td>
-            </tr>
-            {% endfor %}
+    <tr>
+        <th>课程代码</th>
+        <th>课程名称</th>
+        <th>课程学分</th>
+        <th>课程成绩</th>
+    </tr>
+    {% for i in score_list %}
+    <tr>
+        <td>{{ i.classid }}</td>
+        <td>{{ i.name }}</td>
+        <td>{{ i.credit }}</td>
+        <td>{{ i.score }}</td>
+    </tr>
+    {% endfor %}
 </table>
 <p>您本学期的平均绩点为:{{ average_score|default:0|floatformat:2 }}。加油！</p>
 
-
-
-{% include "footer.html" %}
-<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.js' %}"></script>
-
-</body>
-</html>
+{% endblock content %}

@@ -1,23 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人中心</title>
-</head>
-<body>
-    {% include "nav.html" %}
-    <h2>欢迎来到个人中心</h2>
-    <h3>您好!  {{ identity }}，您的相关信息如下：</h3>
-    <ul>
-        <li>姓名：</li><p>{{ name  }}</p>
-        <li>学号：</li><p>{{ id  }}</p>
-        <li>邮箱：</li><p>{{ email }}</p>
-        <li>专业：</li><p>{{ major }}</p>
-        <li>入校年份：</li><p>{{ year }}</p>
-        <li>年级：</li><p>{{ grade }}</p>
-    </ul>
-    {% include "footer.html" %}
-</body>
-</html>
+{% extends "index.html"%}
+
+{% block pagetitle %}
+<title>个人中心</title>
+{% endblock pagetitle %}
+
+{% block content %}
+<h2>欢迎来到个人中心</h2>
+<h3>您好! {{ identity }}，您的相关信息如下：</h3>
+<ul>
+    <li>姓名：</li>
+    <p>{{ name }}</p>
+    <li>学号：</li>
+    <p>{{ id }}</p>
+    <li>邮箱：</li>
+    <p>{{ email }}</p>
+    <li>专业：</li>
+    <p>{{ major }}</p>
+    <li>入校年份：</li>
+    <p>{{ year }}</p>
+    <li>年级：</li>
+    <p>{{ grade }}</p>
+</ul>
+{% endblock content %}

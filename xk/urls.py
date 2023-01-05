@@ -18,20 +18,20 @@ from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
-    ## 总网页
-    re_path(r'^$', views.index),
+    ## 通用
     path('login/', views.login),
     path('logout/', views.logout),
+    path('admin/', admin.site.urls),
+    path('test/', views.test),
     path("message/", views.message),
     path("message/message_delete/", views.message_delete),
+    
 
     ## 学生有关网页
     path('index/', views.index),
     path('me/', views.me),
     path('classinfo/', views.classinfo),
     path('classinfo/detail/', views.classinfo_detail),
-    path('admin/', admin.site.urls),
-    path('test/', views.test),
     path('classchoice/', views.classchoice),
     path('classchoice/drop_class/', views.drop_class),
     path('classchoice/add_class/', views.add_class),

@@ -14,14 +14,14 @@
 
 ```yaml
 ports:
-	- 8000:8000
+  - 8000:8000
 ```
 
 如有冲突，可以修改为：
 
 ```yaml
 ports:
-	- 8000:任意可用端口
+  - 8000:任意可用端口
 ```
 
 ### 2、容器运行
@@ -45,6 +45,9 @@ docker-compose up -d --build
 ***等待两个容器都启动完毕后***，在mysql的terminal运行下面的命令导入数据：
 
 ```sh
+# 修改配置文件为只读，否则mysql会忽视该文件
+chmod 700  /etc/mysql/conf.d/my.cnf
+# 使用sql脚本导入数据
 mysql --user='root' --password='123456' --database='xk' < '/xk.sql'
 ```
 

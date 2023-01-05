@@ -1,45 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{% extends "index.html"%}
 
+{% block pagetitle %}
+<title>培养方案推荐</title>
+{% endblock pagetitle %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>培养方案推荐</title>
-</head>
-<body>
-{% include "nav.html" %}
-<p>     </p>
-<h4><b>{{ major }}第{{ grade  }}学期,推荐课程如下:</b> </h4>
-<p>    </p>
+{% block content %}
+<p> </p>
+<h4><b>{{ major }}第{{ grade }}学期,推荐课程如下:</b> </h4>
+<p> </p>
 <table border=1 class="table table-sm">
-            <tr>
-                <th>课程代码</th>
-                <th>课程名称</th>
-                {% if request.session.week < 3 %}
-                <th>前往选课</th>
-                   {% else %}
-                {% endif %}
-                <th>查看细节</th>
-            </tr>
-            {% for i in adv_list %}
-            <tr>
-                <td>{{ i.code }}</td>
-                <td>{{ i.name }}</td>
-                {% if request.session.week < 3 %}
-                <td><a href="../classchoice/?code={{ i.code }}">前往选课</a></td>
-                {% else %}
-                {% endif %}
-                <td><a href="../classinfo/?code={{ i.code }}">查看细节</a></td>
-            </tr>
-            {% endfor %}
-
-{% include "footer.html" %}
-
-<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.js' %}"></script>
-</body>
-</html>
+    <tr>
+        <th>课程代码</th>
+        <th>课程名称</th>
+        {% if request.session.week < 3 %} <th>前往选课</th>
+            {% else %}
+            {% endif %}
+            <th>查看细节</th>
+    </tr>
+    {% for i in adv_list %}
+    <tr>
+        <td>{{ i.code }}</td>
+        <td>{{ i.name }}</td>
+        {% if request.session.week < 3 %} <td><a href="../classchoice/?code={{ i.code }}">前往选课</a></td>
+            {% else %}
+            {% endif %}
+            <td><a href="../classinfo/?code={{ i.code }}">查看细节</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}

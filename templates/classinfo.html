@@ -1,89 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{% extends "index.html"%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>课程信息</title>
-</head>
-<body>
-    {% include "nav.html" %}
-    <form method="post" action="/classinfo/">
-            {% csrf_token %}
-        <div class="row g-7">
-            <div class="col-sm">
-                <input type="text" class="form-control" name="classid" placeholder="课程序号" aria-label="City">
-            </div>
-            <div class="col-sm">
-                <input type="text" class="form-control" name="code" placeholder="课程代码" aria-label="State">
-            </div>
-            <div class="col-sm">
-                <input type="text" class="form-control" name="name" placeholder="课程名称" aria-label="Zip">
-            </div>
-            <div class="col-sm">
-                <input type="text" class="form-control" name="department" placeholder="开课院系" aria-label="City">
-            </div>
-            <div class="col-sm">
-                <select class="form-select" name="time" placeholder="开课时间" aria-label="Default select example">
-                    <option selected>开课时间</option>
-                    <option value="周一">周一</option>
-                    <option value="周二">周二</option>
-                    <option value="周三">周三</option>
-                    <option value="周四">周四</option>
-                    <option value="周五">周五</option>
-                    <option value="周六">周六</option>
-                    <option value="周日">周日</option>
-                </select>
-            </div>
-            <div class="col-sm">
-                <select class="form-select" name="exam" placeholder="开课时间" aria-label="Default select example">
-                    <option selected>考试类型</option>
-                    <option value="开卷考试">开卷考试</option>
-                    <option value="闭卷考试">闭卷考试</option>
-                    <option value="半开卷考试">半开卷考试</option>
-                    <option value="课程论文">课程论文</option>
-                    <option value="其他">其他</option>
-                </select>
-            </div>
-            <div class="col-sm">
-                <button type="submit" class="btn btn-primary" >查询</button>
-            </div>
-
+{% block pagetitle %}
+<title>课程信息</title>
+{% endblock pagetitle%}
+{% block content %}
+<form method="post" action="/classinfo/">
+    {% csrf_token %}
+    <div class="row g-7">
+        <div class="col-sm">
+            <input type="text" class="form-control" name="classid" placeholder="课程序号" aria-label="City">
         </div>
-        </form>
-    <table border=1 class="table table-sm">
-        <tr>
-            <th>课程序号</th>
-            <th>课程代码</th>
-            <th>课程名称</th>
-            <th>开课院系</th>
-            <th>学分数</th>
-            <th>授课老师</th>
-            <th>周学时</th>
-            <th>授课周数</th>
-            <th>授课时间</th>
-            <th>查看详情</th>
-        </tr>
-        {% for i in class_lst %}
-        <tr>
-            <td>{{ i.classid }}</td>
-            <td>{{ i.code }}</td>
-            <td>{{ i.name }}</td>
-            <td>{{ i.department }}</td>
-            <td>{{ i.credit }}</td>
-            <td>{{ i.teacher.name }}</td>
-            <td>{{ i.detail.hours }}</td>
-            <td>{{ i.detail.weeks }}</td>
-            <td>{{ i.detail.time }}</td>
-            <td><a href="./detail/?classid={{ i.classid }}">→详情</a></td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% include "footer.html" %}
-<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.js' %}"></script>
-</body>
-</html>
+        <div class="col-sm">
+            <input type="text" class="form-control" name="code" placeholder="课程代码" aria-label="State">
+        </div>
+        <div class="col-sm">
+            <input type="text" class="form-control" name="name" placeholder="课程名称" aria-label="Zip">
+        </div>
+        <div class="col-sm">
+            <input type="text" class="form-control" name="department" placeholder="开课院系" aria-label="City">
+        </div>
+        <div class="col-sm">
+            <select class="form-select" name="time" placeholder="开课时间" aria-label="Default select example">
+                <option selected>开课时间</option>
+                <option value="周一">周一</option>
+                <option value="周二">周二</option>
+                <option value="周三">周三</option>
+                <option value="周四">周四</option>
+                <option value="周五">周五</option>
+                <option value="周六">周六</option>
+                <option value="周日">周日</option>
+            </select>
+        </div>
+        <div class="col-sm">
+            <select class="form-select" name="exam" placeholder="开课时间" aria-label="Default select example">
+                <option selected>考试类型</option>
+                <option value="开卷考试">开卷考试</option>
+                <option value="闭卷考试">闭卷考试</option>
+                <option value="半开卷考试">半开卷考试</option>
+                <option value="课程论文">课程论文</option>
+                <option value="其他">其他</option>
+            </select>
+        </div>
+        <div class="col-sm">
+            <button type="submit" class="btn btn-primary">查询</button>
+        </div>
+
+    </div>
+</form>
+<table border=1 class="table table-sm">
+    <tr>
+        <th>课程序号</th>
+        <th>课程代码</th>
+        <th>课程名称</th>
+        <th>开课院系</th>
+        <th>学分数</th>
+        <th>授课老师</th>
+        <th>周学时</th>
+        <th>授课周数</th>
+        <th>授课时间</th>
+        <th>查看详情</th>
+    </tr>
+    {% for i in class_lst %}
+    <tr>
+        <td>{{ i.classid }}</td>
+        <td>{{ i.code }}</td>
+        <td>{{ i.name }}</td>
+        <td>{{ i.department }}</td>
+        <td>{{ i.credit }}</td>
+        <td>{{ i.teacher.name }}</td>
+        <td>{{ i.detail.hours }}</td>
+        <td>{{ i.detail.weeks }}</td>
+        <td>{{ i.detail.time }}</td>
+        <td><a href="./detail/?classid={{ i.classid }}">→详情</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% include "footer.html" %}
+{% endblock content %}

@@ -1,20 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+{% extends "index.html"%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>选课列表</title>
-</head>
-<body>
-{% include "nav.html" %}
+{% block pagetitle %}
+<title>选课列表</title>
+{% endblock pagetitle %}
+
+{% block content %}
 {% if request.session.week > 3 %}
-    <p>     </p>
+<p> </p>
 <h4><b>功能暂未开放</b> </h4>
-<p>    </p>
+<p> </p>
 {% else %}
 <table border="1" class="table table-sm">
     <tr>
@@ -42,61 +36,61 @@
 <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button"
-                role="tab" aria-controls="home-tab-pane" aria-selected="true">选择课程
+            role="tab" aria-controls="home-tab-pane" aria-selected="true">选择课程
         </button>
     </li>
     <li class="nav-item" role="presentation">
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button"
-                role="tab" aria-controls="profile-tab-pane" aria-selected="false">已选课程
+            role="tab" aria-controls="profile-tab-pane" aria-selected="false">已选课程
         </button>
     </li>
 </ul>
-<div class="tab-content" id="myTabContent">
+<div class="tab-content" id="myTabContent" stype="width:20px;">
     <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
         <form method="post" action="/classchoice/">
             {% csrf_token %}
-        <div class="row g-7">
-            <div class="col-sm">
-                <input type="text" class="form-control" name="classid" placeholder="课程序号" aria-label="City">
-            </div>
-            <div class="col-sm">
-                <input type="text" class="form-control" name="code" placeholder="课程代码" aria-label="State">
-            </div>
-            <div class="col-sm">
-                <input type="text" class="form-control" name="name" placeholder="课程名称" aria-label="Zip">
-            </div>
-            <div class="col-sm">
-                <input type="text" class="form-control" name="department" placeholder="开课院系" aria-label="City">
-            </div>
-            <div class="col-sm">
-                <select class="form-select" name="time" placeholder="开课时间" aria-label="Default select example">
-                    <option selected>开课时间</option>
-                    <option value="周一">周一</option>
-                    <option value="周二">周二</option>
-                    <option value="周三">周三</option>
-                    <option value="周四">周四</option>
-                    <option value="周五">周五</option>
-                    <option value="周六">周六</option>
-                    <option value="周日">周日</option>
-                </select>
-            </div>
-            <div class="col-sm">
-                <select class="form-select" name="exam" placeholder="开课时间" aria-label="Default select example">
-                    <option selected>考试类型</option>
-                    <option value="开卷考试">开卷考试</option>
-                    <option value="闭卷考试">闭卷考试</option>
-                    <option value="半开卷考试">半开卷考试</option>
-                    <option value="课程论文">课程论文</option>
-                    <option value="其他">其他</option>
-                </select>
-            </div>
-            <div class="col-sm">
-                <button type="submit" class="btn btn-primary" >查询</button>
-            </div>
+            <div class="row g-7">
+                <div class="col-sm">
+                    <input type="text" class="form-control" name="classid" placeholder="课程序号" aria-label="City">
+                </div>
+                <div class="col-sm">
+                    <input type="text" class="form-control" name="code" placeholder="课程代码" aria-label="State">
+                </div>
+                <div class="col-sm">
+                    <input type="text" class="form-control" name="name" placeholder="课程名称" aria-label="Zip">
+                </div>
+                <div class="col-sm">
+                    <input type="text" class="form-control" name="department" placeholder="开课院系" aria-label="City">
+                </div>
+                <div class="col-sm">
+                    <select class="form-select" name="time" placeholder="开课时间" aria-label="Default select example">
+                        <option selected>开课时间</option>
+                        <option value="周一">周一</option>
+                        <option value="周二">周二</option>
+                        <option value="周三">周三</option>
+                        <option value="周四">周四</option>
+                        <option value="周五">周五</option>
+                        <option value="周六">周六</option>
+                        <option value="周日">周日</option>
+                    </select>
+                </div>
+                <div class="col-sm">
+                    <select class="form-select" name="exam" placeholder="开课时间" aria-label="Default select example">
+                        <option selected>考试类型</option>
+                        <option value="开卷考试">开卷考试</option>
+                        <option value="闭卷考试">闭卷考试</option>
+                        <option value="半开卷考试">半开卷考试</option>
+                        <option value="课程论文">课程论文</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+                <div class="col-sm">
+                    <button type="submit" class="btn btn-primary">查询</button>
+                </div>
 
-        </div>
+            </div>
         </form>
-       <table border=1 class="table table-sm">
+        <table border=1 class="table table-sm">
             <tr>
                 <th>课程序号</th>
                 <th>课程代码</th>
@@ -121,7 +115,7 @@
                 <td>{{ i.time }}</td>
                 <td>{{ i.exam }}</td>
                 <td><a href="./add_class/?classid={{ i.classid }}">选课</a></td>
-           </tr>
+            </tr>
             {% endfor %}
         </table>
     </div>
@@ -159,11 +153,7 @@
         </table>
     </div>
 </div>
-{% include "footer.html" %}
 
 {% endif %}
-<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-<script src="{% static 'js/bootstrap.js' %}"></script>
 
-</body>
-</html>
+{% endblock content %}
